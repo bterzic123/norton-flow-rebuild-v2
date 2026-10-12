@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Search to Pro · Norton 360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  color-scheme: only light;
+  /* ---- Norton, extracted from their live iOS screens ---- */
+  --nt-bg:#FCFAF8; --nt-card:#F7F5F4; --nt-white:#FFFFFF; --nt-close:#E9E7E4;
+  --nt-ink:#1A1A1A; --nt-txt:#4A494C; --nt-muted:#7B7B7D; --nt-line:rgba(26,26,26,.12); --nt-line2:rgba(26,26,26,.22);
+  --nt-yellow:#FEEB29; --nt-blue:#0F71EF; --nt-green:#017744; --nt-red:#D50F1E; --nt-sel:#1A1A1A;
+  --r-ctl:30px; --r-media:18px;
+  /* ---- the report shell, in Norton's own palette (light app, light shell) ---- */
+  --bg:#FCFAF8; --bg2:#F4F1EC; --surf:#FFFFFF;
+  --hair:rgba(26,26,26,.09); --hair2:rgba(26,26,26,.18);
+  --ink:#1A1A1A; --ink2:#4A494C; --ink3:#7B7B7D;
+  --accent:#FEEB29; --accent-lift:#0F71EF;
+  --panel:#FFFFFF; --panel-ink:#15181B; --panel-muted:#5F666D; --panel-line:#E9ECEF;
+  --accent-ink:#0B5BC4;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+.tight{font-family:'Inter Tight','Inter',sans-serif}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(252,250,248,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 20px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.nav-brand .mk{height:24px;width:auto;display:block}
+.nav-brand .sep{width:1px;height:18px;background:var(--hair2)}
+.nav-brand span{color:var(--ink2);font-weight:500}
+.nav-brand b{color:var(--ink);font-weight:600}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s;display:inline-flex;align-items:center}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:rgba(26,26,26,.07)}
+@media(max-width:640px){.nav-brand span,.nav-brand .sep{display:none}}
+@media(max-width:700px){.nav-links .lg{display:none}.nav-links button{padding:7px 9px}}
+@media(max-width:500px){.nav-in{padding:0 12px;gap:8px}.nav-brand b{display:none}.nav-links button{padding:7px 7px;font-size:12px}.nav-links .pdot{margin-right:5px}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:100px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-360px;left:50%;transform:translateX(-50%);
+  width:1100px;height:660px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(254,235,41,.42),transparent 72%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(36% 44% at 88% 18%,rgba(15,113,239,.10),transparent 70%),
+   radial-gradient(36% 44% at 10% 22%,rgba(1,119,68,.07),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-family:'Inter Tight','Inter',sans-serif;font-weight:800;font-size:88px;line-height:.95;letter-spacing:-.045em;margin:0 0 24px;
+  display:flex;align-items:center;justify-content:center;gap:18px}
+.hero h1 img{height:76px;width:auto}
+@media(max-width:820px){.hero h1{font-size:58px}.hero h1 img{height:50px}.hero{padding-top:70px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:600px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:64px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 8px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:var(--nt-green);display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-family:'Inter Tight','Inter',sans-serif;font-size:40px;line-height:1.12;font-weight:800;letter-spacing:-.035em;margin:0 0 20px;max-width:700px}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:660px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 180px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:rgba(254,235,41,.12)}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:560px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12.5px;font-weight:600;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+
+.band{background:var(--surf);border:1px solid var(--hair);border-radius:28px;padding:40px 44px;margin-top:64px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift)}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+
+.cta-row{display:flex;justify-content:center;margin-top:52px;align-items:center;gap:22px;flex-wrap:wrap}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--nt-yellow);color:var(--nt-ink);border:3px solid var(--nt-ink);
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:13px 24px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(1.03);transform:translateY(-1px)}
+.bigbtn svg{width:15px;height:15px}
+.bigbtn.alt{background:#fff}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ keyword section ============ */
+.flow5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px}
+@media(max-width:900px){.flow5{grid-template-columns:1fr}}
+.f5{background:var(--surf);border:1px solid var(--hair);border-radius:18px;padding:20px 18px}
+.f5 .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent-lift);margin-bottom:10px}
+.f5 h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 6px;line-height:1.3}
+.f5 p{font-size:13px;line-height:1.55;color:var(--ink2);margin:0}
+.intent{margin-top:34px;border-top:1px solid var(--hair)}
+.irow{display:grid;grid-template-columns:200px 1fr 1.2fr;gap:22px;padding:20px 4px;border-bottom:1px solid var(--hair);align-items:start}
+@media(max-width:820px){.irow{grid-template-columns:1fr;gap:6px}.irow.hd{display:none}}
+.irow.hd{padding:12px 4px}
+.irow.hd span{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.irow b{font-size:15.5px;font-weight:700;letter-spacing:-.015em;display:flex;align-items:center}
+.irow .kw{display:flex;flex-wrap:wrap;gap:6px}
+.irow .kw i{font-style:normal;font-size:12.5px;font-weight:600;color:var(--ink2);border:1px solid var(--hair2);border-radius:14px;padding:4px 10px;background:#fff}
+.irow p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.irow p q{color:var(--ink);font-weight:600}
+
+.kwt{margin-top:40px;background:var(--surf);border:1px solid var(--hair);border-radius:24px;overflow:hidden}
+.kwt-g{padding:22px 26px 8px;border-top:1px solid var(--hair)}
+.kwt-g:first-child{border-top:none}
+.kwt-gh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.kwt-gh h4{font-size:16px;font-weight:700;letter-spacing:-.015em}
+.kwt-gh span{font-size:13px;color:var(--ink3)}
+.tagk{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:6px;padding:4px 7px}
+.tagk.win{background:#E3F2EA;color:#015C35}.tagk.lose{background:#FCE6E8;color:#A50C17}
+.tagk.open{background:#E2EDFD;color:#0B5BC4}.tagk.leak{background:#FFF7BF;color:#5E5400}
+.kr{display:grid;grid-template-columns:minmax(150px,1.3fr) 76px minmax(150px,1.2fr) minmax(140px,1.3fr);gap:16px;align-items:center;
+  padding:11px 0;border-top:1px solid var(--hair);font-size:13.5px}
+.kr.hd{border-top:none;padding:4px 0 6px}
+.kr.hd span{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.kr .k{font-weight:600;color:var(--ink)}
+.kr .k small{display:block;font-weight:500;color:var(--ink3);font-size:12px;line-height:1.4}
+.kr .pop{color:var(--ink2);font-variant-numeric:tabular-nums}
+.kr .who{color:var(--ink2);font-size:12.5px;line-height:1.45}
+.sov{display:flex;align-items:center;gap:10px}
+.sov .b{flex:1;height:8px;border-radius:4px;background:rgba(26,26,26,.07);overflow:hidden;min-width:60px}
+.sov .b i{display:block;height:100%;background:var(--nt-green);border-radius:4px}
+.sov.lo .b i{background:#E0A800}
+.sov.zero .b i{background:var(--nt-red)}
+.sov em{font-style:normal;font-weight:700;font-size:13px;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:760px){.kr{grid-template-columns:1fr 1fr;gap:6px 14px}.kr.hd{display:none}.kr .pop::before{content:'Popularity ';color:var(--ink3)}.kwt-g{padding:18px 16px 6px}}
+.dos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+@media(max-width:860px){.dos{grid-template-columns:1fr}}
+.do{background:var(--surf);border:1px solid var(--hair);border-radius:18px;padding:20px 20px}
+.do h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:8px 0 6px;line-height:1.3}
+.do p{font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.do .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent-lift)}
+.asa-note{font-size:13px;line-height:1.6;color:var(--ink3);margin-top:16px;max-width:760px}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:30px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;border-left:none;border-top:1px solid var(--hair)}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #D5D3D0,0 34px 80px -24px rgba(26,26,26,.35)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--nt-bg);color-scheme:only light}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:600 15px/1 'Inter',sans-serif;color:#fff;transition:color .3s}
+.sbar.ink{color:#111}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.9);z-index:56;pointer-events:none;transition:background .3s}
+.homebar.ink{background:#111}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--nt-bg)}
+
+/* ============ phone screens — Norton's system, all prefixed scr-/nt- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;color:var(--nt-ink);background:var(--nt-bg);
+  font-family:'Inter',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.sheet{transform:translateY(100%)}
+.scr.sheet.is-active{transform:translateY(0);z-index:30}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:54px 20px 0;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 20px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-foot{flex:none;padding:12px 20px 30px;position:relative;z-index:2}
+
+.nt-btn{display:block;width:100%;height:54px;border-radius:30px;background:var(--nt-yellow);color:#1A1A1A;border:3px solid #1A1A1A;
+  font:700 17px/1 'Inter',sans-serif;letter-spacing:-.01em;transition:filter .15s}
+.nt-btn:hover{filter:brightness(1.03)}
+.nt-btn[disabled]{background:var(--nt-close);border-color:var(--nt-close);color:var(--nt-muted);cursor:default}
+.nt-btn2{display:block;width:100%;height:54px;border-radius:30px;background:var(--nt-white);color:var(--nt-ink);border:3px solid var(--nt-ink);
+  font:700 17px/1 'Inter',sans-serif;margin-top:12px}
+.nt-x{width:40px;height:40px;border-radius:50%;background:var(--nt-close);display:grid;place-items:center;color:var(--nt-muted);flex:none}
+.nt-x svg{width:18px;height:18px}
+.nt-h{font-family:'Inter Tight','Inter',sans-serif;font-weight:800;font-size:28px;line-height:1.12;letter-spacing:-.025em;color:var(--nt-ink)}
+.nt-sub{font-size:15.5px;line-height:1.45;color:var(--nt-txt);margin-top:10px}
+.nt-legal{font-size:12.5px;line-height:1.5;color:var(--nt-muted);text-align:center;margin-bottom:16px}
+.nt-legal u{color:var(--nt-ink);text-decoration:underline}
+
+/* welcome */
+.nt-logo{display:block;height:34px;width:auto;margin:6px auto 0}
+.nt-ill{display:block;width:290px;max-width:100%;height:auto;margin:30px auto 0}
+.nt-ill.globe{width:270px}
+.scr--wel .nt-h{text-align:center;font-size:30px;margin-top:30px;padding:0 4px}
+.scr--wel .nt-sub{text-align:center;font-size:16.5px;padding:0 6px}
+
+/* question screens */
+.nt-qtop{display:flex;align-items:center;gap:14px}
+.nt-back{width:40px;height:40px;border-radius:50%;background:var(--nt-close);display:grid;place-items:center;color:var(--nt-ink);flex:none}
+.nt-back svg{width:18px;height:18px}
+.nt-prog{flex:1;display:flex;gap:6px}
+.nt-prog i{flex:1;height:5px;border-radius:3px;background:var(--nt-line)}
+.nt-prog i.on{background:var(--nt-ink)}
+.scr--q .nt-h{margin-top:26px}
+.nt-opts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.nt-opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--nt-card);border:2px solid transparent;
+  border-radius:18px;padding:13px 14px;font:600 15.5px/1.3 'Inter',sans-serif;color:var(--nt-ink);transition:.15s}
+.nt-opt.on{border-color:var(--nt-sel);background:var(--nt-white);box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}
+.nt-opt .ic{width:42px;height:42px;flex:none;border-radius:50%;background:var(--nt-yellow);display:grid;place-items:center}
+.nt-opt .ic svg{width:21px;height:21px;stroke:#1A1A1A;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nt-opt .ck{margin-left:auto;width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--nt-line2);display:grid;place-items:center;transition:.15s}
+.nt-opt.on .ck{background:var(--nt-green);border-color:var(--nt-green)}
+.nt-opt .ck svg{width:13px;height:13px;stroke:#fff;stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.nt-opt.on .ck svg{opacity:1}
+.nt-opt small{display:block;font-size:12.5px;font-weight:500;color:var(--nt-muted);margin-top:3px}
+.nt-hint{font-size:13px;color:var(--nt-muted);text-align:center;margin:0 0 10px}
+
+/* loader */
+.nt-loadwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding-bottom:30px}
+.nt-ring{width:132px;height:132px;position:relative;margin-bottom:30px}
+.nt-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.nt-ring .trk{stroke:var(--nt-line);stroke-width:9;fill:none}
+.nt-ring .arc{stroke:var(--nt-yellow);stroke-width:9;fill:none;stroke-linecap:round;stroke-dasharray:364;stroke-dashoffset:364;transition:stroke-dashoffset .3s}
+.nt-ring .mid{position:absolute;inset:0;display:grid;place-items:center}
+.nt-ring .mid svg{width:50px;height:50px;transform:none;stroke:var(--nt-ink);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nt-load-h{text-align:center;margin-bottom:22px;font-size:26px}
+.nt-lsteps{width:100%;max-width:310px;display:flex;flex-direction:column;gap:13px;margin-bottom:28px}
+.nt-ls{display:flex;align-items:center;gap:11px;font-size:14.5px;font-weight:500;color:var(--nt-muted);transition:.35s}
+.nt-ls.on{color:var(--nt-ink)}
+.nt-ls .d{width:24px;height:24px;flex:none;border-radius:50%;border:2px solid var(--nt-line2);display:grid;place-items:center;transition:.35s}
+.nt-ls.on .d{background:var(--nt-green);border-color:var(--nt-green)}
+.nt-ls .d svg{width:12px;height:12px;stroke:#fff;stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.nt-ls.on .d svg{opacity:1}
+.nt-ls.fin{font-weight:700}
+.nt-rate{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--nt-txt)}
+.nt-rate .st{color:#F2B300;letter-spacing:1px}
+.nt-rate b{color:var(--nt-ink)}
+
+/* paywall — their composition: titled header, column table, price line, yellow CTA */
+.scr--pay .scr-top{padding:52px 0 0}
+.nt-head{position:relative;height:48px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--nt-line2)}
+.nt-head h3{font:600 20px/1 'Inter',sans-serif;color:var(--nt-ink);letter-spacing:-.01em}
+.nt-head .nt-x{position:absolute;right:14px;top:2px}
+.nt-payh{font-family:'Inter Tight','Inter',sans-serif;font-weight:800;font-size:20px;line-height:1.15;letter-spacing:-.02em;margin-top:12px;color:var(--nt-ink)}
+.nt-proof{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:6px;font-size:12.5px;color:var(--nt-txt)}
+.nt-proof .st{color:#F2B300;letter-spacing:1px}
+.nt-proof b{color:var(--nt-ink)}
+.nt-proof .av{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--nt-line2);border-radius:12px;padding:2px 8px;font-size:11.5px;font-weight:600;color:var(--nt-ink)}
+.nt-proof .av svg{width:11px;height:11px;stroke:var(--nt-green);stroke-width:3;fill:none}
+.nt-tbl{display:grid;grid-template-columns:1fr 58px 58px 58px;column-gap:4px;margin-top:4px;position:relative}
+.nt-tbl .colbg{border-radius:16px;background:var(--nt-card);border:2px solid transparent;z-index:0;transition:.15s;cursor:pointer}
+.nt-tbl .colbg.on{border-color:var(--nt-sel);box-shadow:0 10px 18px -12px rgba(0,0,0,.35)}
+.nt-tbl .chd{grid-row:1;z-index:1;text-align:center;font-size:11.5px;line-height:1.25;color:var(--nt-ink);padding:15px 0 5px;position:relative;cursor:pointer}
+.nt-tbl .chd.on{font-weight:700}
+.nt-tbl .rec{position:absolute;top:-2px;left:50%;transform:translateX(-50%);background:var(--nt-yellow);color:#1A1A1A;font:700 9.5px/1 'Inter',sans-serif;
+  letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:4px 6px;white-space:nowrap;border:1.5px solid #1A1A1A}
+.nt-tbl .logo{grid-row:1;grid-column:1;display:flex;align-items:center}
+.nt-tbl .logo img{height:26px;width:auto}
+.nt-tbl .rl{grid-column:1;padding:7px 6px 7px 0;z-index:1}
+.nt-tbl .rl b{display:block;font-size:14.5px;font-weight:700;line-height:1.2;color:var(--nt-ink)}
+.nt-tbl .rl span{display:block;font-size:11.5px;line-height:1.35;color:var(--nt-txt);margin-top:3px}
+.nt-tbl .rl.hi b{box-shadow:inset 0 -7px 0 rgba(254,235,41,.75)}
+.nt-tbl .cell{display:grid;place-items:center;z-index:1;pointer-events:none}
+.nt-ok,.nt-no,.nt-num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 15px/1 'Inter',sans-serif}
+.nt-ok,.nt-num{background:var(--nt-green)} .nt-no{background:var(--nt-red)}
+.nt-ok svg,.nt-no svg{width:15px;height:15px;stroke:#fff;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nt-tbl .pad{grid-column:2 / -1;height:4px}
+.nt-paylegal{font-size:11.5px;line-height:1.45;color:var(--nt-muted);text-align:center;margin:8px 0 2px}
+.nt-paylegal u{color:var(--nt-ink)}
+.nt-price{text-align:center;font-size:17px;color:var(--nt-txt);margin:0 0 12px;letter-spacing:-.01em}
+
+/* offer — their composition, trial on the plan they chose */
+.scr--offer .scr-top{padding:52px 0 0}
+.nt-ohead{height:52px;display:flex;align-items:center;justify-content:flex-end;padding:0 14px;border-bottom:1px solid var(--nt-line2)}
+.nt-ill.sm{width:196px;margin-top:8px}
+.nt-badge{display:inline-block;background:var(--nt-blue);color:#fff;font:700 12.5px/1 'Inter',sans-serif;letter-spacing:.02em;text-transform:uppercase;padding:8px 9px;border-radius:5px;margin-top:14px}
+.nt-oh{font-family:'Inter Tight','Inter',sans-serif;font-weight:800;font-size:29px;line-height:1.12;letter-spacing:-.025em;margin-top:12px;color:var(--nt-ink)}
+.nt-oh em{font-style:normal;color:var(--nt-blue)}
+.nt-ohr{height:1px;background:var(--nt-line);margin:14px 0 6px}
+.nt-chk{display:flex;align-items:flex-start;gap:12px;font-size:14.5px;line-height:1.4;color:var(--nt-txt);padding:7px 0}
+.nt-chk svg{width:22px;height:22px;flex:none;stroke:var(--nt-green);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.scr--offer .scr-foot{background:var(--nt-white);box-shadow:0 -14px 24px -16px rgba(0,0,0,.18);padding-top:18px;padding-bottom:28px}
+.nt-oplan{font-family:'Inter Tight','Inter',sans-serif;font-weight:800;font-size:22px;text-align:center;letter-spacing:-.02em;color:var(--nt-ink)}
+.nt-oprice{font-size:14.5px;line-height:1.45;color:var(--nt-txt);text-align:center;margin-top:6px}
+.nt-oprice b{color:var(--nt-ink);font-weight:700}
+.nt-tl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 14px}
+.nt-tl div{background:var(--nt-card);border-radius:12px;padding:8px 10px;font-size:12px;line-height:1.35;color:var(--nt-txt)}
+.nt-tl b{display:block;color:var(--nt-ink);font-size:12.5px}
+.nt-tl div:first-child b{color:var(--nt-green)}
+
+/* toast — stands in for the system purchase sheet */
+.nt-toast{position:absolute;left:20px;right:20px;bottom:110px;z-index:80;background:#1A1A1A;color:#fff;border-radius:14px;padding:12px 14px;
+  font:500 13px/1.4 'Inter',sans-serif;text-align:center;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none}
+.nt-toast.on{opacity:1;transform:none}
+
+/* dark mode — an approximation: no Norton dark frames were supplied */
+.phone-in.dark{--nt-bg:#121212;--nt-card:#1E1E1E;--nt-white:#1A1A1A;--nt-close:#2A2A2A;--nt-ink:#F4F2EF;--nt-txt:#BAB8B5;--nt-muted:#8C8A87;
+  --nt-line:rgba(255,255,255,.12);--nt-line2:rgba(255,255,255,.22);--nt-sel:#F4F2EF;--nt-blue:#4C95FF;--nt-green:#1E9A5E;background:var(--nt-bg)}
+.phone-in.dark .screenwrap{background:var(--nt-bg)}
+.phone-in.dark .nt-logo,.phone-in.dark .nt-tbl .logo img{filter:invert(1) hue-rotate(180deg) brightness(1.1)}
+.phone-in.dark .nt-ill{filter:brightness(.92)}
+.phone-in.dark .nt-btn2{background:transparent}
+.phone-in.dark .nt-badge{background:#0F71EF}
+.phone-in.dark .nt-oh em{color:#6AA8FF}
+.phone-in.dark .nt-toast{background:#F4F2EF;color:#1A1A1A}
+.phone-in.dark .nt-tbl .rl.hi b{box-shadow:inset 0 -6px 0 rgba(254,235,41,.35)}
+.phone-in.dark .nt-opt.on,.phone-in.dark .nt-tbl .colbg.on{box-shadow:none}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:540px}
+.seg{display:inline-flex;align-items:center;background:#fff;border:1px solid #E1E0DD;border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Inter',sans-serif;color:#4A494C;transition:.14s}
+.seg button.on{background:#1A1A1A;color:#fff}
+.seg .lab{font:700 10px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8987;padding:0 6px 0 9px}
+.seg.kwseg{flex-wrap:wrap;justify-content:center;max-width:100%}
+.seg.kwseg button{padding:6px 9px}
+@media(max-width:500px){.seg.kwseg{border-radius:16px}.kwseg .lab{width:100%;text-align:center;padding:5px 0 4px}}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:20px;background:var(--nt-yellow);border:2px solid #1A1A1A;color:#1A1A1A;font:700 12px/1 'Inter',sans-serif}
+.prevbtn{display:inline-flex;align-items:center;gap:5px;padding:8px 13px 8px 9px;border-radius:20px;background:#fff;border:1px solid #E1E0DD;font:600 12px/1 'Inter',sans-serif;color:#15181B}
+.prevbtn svg{width:13px;height:13px}
+.prevbtn[disabled]{opacity:.4;cursor:default}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--hair);border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(26,26,26,.12)}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:#EEF0F1}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent-lift);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;color:#15181B;margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Inter',sans-serif;color:#4A5058;padding:7px 10px;border-radius:12px;border:1px solid #E1E4E6;flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(15,113,239,.18);
+  border:2px solid rgba(15,113,239,.85);box-shadow:0 4px 14px rgba(0,0,0,.2);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(15,113,239,.35)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:123px;height:123px;display:block;image-rendering:pixelated}
+.qr span{font-size:12.5px;line-height:1.45;color:#4A5058}
+.qr b{display:block;color:#15181B;font-size:13.5px}
+@media(max-width:1080px){.qr{display:none !important}}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid #E1E0DD;background:#fff;font:600 12px/1 'Inter',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:#C9C7C3}
+.chip.offer{border-style:dashed;border-color:var(--accent-lift);color:var(--accent-lift)}
+.chip.on{background:var(--nt-yellow);border:1px solid #1A1A1A;color:#1A1A1A}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+
+.herobtns{display:flex;justify-content:center;margin-top:30px;flex-wrap:wrap;gap:12px;align-items:center}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;transition:.16s}
+.ghostbtn:hover{border-color:var(--ink3)}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--nt-yellow);border:2px solid #1A1A1A;display:grid;place-items:center}
+.ghostbtn .pl svg{width:11px;height:11px;fill:#1A1A1A;margin-left:2px}
+.herobtns .qr{background:#fff;border:1px solid var(--hair2);padding:7px 16px 7px 7px;border-radius:14px}
+.herobtns .qr img{width:82px;height:82px}
+
+/* which flow am I in */
+.pdot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none;margin-right:7px}
+.pdot.s{background:var(--nt-yellow);box-shadow:0 0 0 1.5px #1A1A1A}
+.pdot.v{background:var(--nt-blue);box-shadow:0 0 0 1.5px rgba(15,113,239,.35)}
+.pathbar{border-bottom:1px solid var(--hair);background:var(--bg2)}
+.pathbar-in{max-width:1180px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.backov{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px 0 12px;border-radius:20px;border:1px solid var(--hair2);font-size:13.5px;font-weight:600;color:var(--ink);background:#fff}
+.backov svg{width:16px;height:16px}
+.ptabs{display:flex;gap:8px;flex:1;min-width:280px}
+.ptab{flex:1;display:flex;align-items:center;gap:4px;text-align:left;padding:10px 16px;border-radius:16px;border:1.5px solid var(--hair2);color:var(--ink2);transition:.15s;background:#fff}
+.ptab span{display:flex;flex-direction:column;gap:2px}
+.ptab b{font-size:14.5px;font-weight:700;color:var(--ink)}
+.ptab em{font-style:normal;font-size:12px;color:var(--ink3);line-height:1.35}
+.ptab.on[data-path=sec]{border-color:#1A1A1A;background:#FFFBD6}
+.ptab.on[data-path=vpn]{border-color:var(--nt-blue);background:#EAF2FE}
+.ptab:not(.on){opacity:.72}
+@media(max-width:600px){.ptab em{display:none}.ptab{padding:9px 12px}}
+.ptag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink3);margin-bottom:8px}
+.ptag .pdot{width:8px;height:8px;margin-right:6px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-path{display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:6px 12px 6px 10px;border-radius:14px;margin-bottom:18px}
+.pn-path.s{background:#FFF8C2;color:#4A4300}
+.pn-path.v{background:#E2EDFD;color:#0B5BC4}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#2E353B;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#2E353B;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+
+/* ============ volume 2: two keyword flows side by side ============ */
+:root{--sec:#1A1A1A;--sec-bg:#FFF8C2;--sec-ink:#4A4300;--sec-ring:#F2D600;--vpn:#0F71EF;--vpn-bg:#E2EDFD;--vpn-ink:#0B5BC4}
+.nav-in{max-width:none}
+body:not(.proto) .nav-in{max-width:1080px}
+.nav-tools{display:none;align-items:center;gap:8px;margin-left:auto}
+body.proto .nav-tools{display:flex}
+body.proto .nav-links{margin-left:14px}
+.nav-links button{font-size:13.5px;padding:8px 16px}
+.hdemo-btn{display:inline-flex;align-items:center;gap:7px;background:var(--nt-yellow);border:2px solid #1A1A1A;color:#1A1A1A;font:700 12.5px/1 'Inter',sans-serif;padding:8px 14px;border-radius:20px;white-space:nowrap}
+.hdemo-btn svg{width:11px;height:11px;fill:#1A1A1A}
+@media(max-width:899px){body.proto .nav-tools{display:none}}
+
+/* overview additions */
+.fb2{max-width:860px;grid-template-columns:1fr 1fr;gap:34px;padding-top:34px}
+.fb2 .fb-col{display:flex;flex-direction:column;gap:14px}
+.fb2 .fb-k{grid-column:auto;text-align:left;margin-bottom:2px}
+.fb2 .asa-col{border-left:1px solid var(--hair);padding-left:34px}
+.fb2 .asa-col .fb-k{color:var(--vpn-ink)}
+.fb2 .asa-col .tick{background:var(--vpn)}
+@media(max-width:700px){.fb2 .asa-col{border-left:none;padding-left:0;border-top:1px solid var(--hair);padding-top:20px}}
+.asa{padding:76px 0 0}
+.asa-card{position:relative;overflow:hidden;border-radius:28px;background:#1A1A1A;color:#fff;padding:46px 48px;display:grid;grid-template-columns:1fr 280px;gap:40px}
+@media(max-width:860px){.asa-card{grid-template-columns:1fr;padding:32px 26px;gap:26px}}
+.asa-card::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 90% at 0% 0%,rgba(254,235,41,.20),transparent 70%),radial-gradient(60% 80% at 100% 100%,rgba(15,113,239,.32),transparent 70%)}
+.asa-card>*{position:relative}
+.asa-card .sec-k{color:var(--nt-yellow);margin-bottom:14px}
+.asa-card h2{font-family:'Inter Tight','Inter',sans-serif;font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.035em;margin:0 0 18px;color:#fff}
+.asa-card h2 em{font-style:normal;color:var(--nt-yellow)}
+.asa-card p{font-size:16.5px;line-height:1.66;color:rgba(255,255,255,.78);margin:0;max-width:600px}
+.asa-card p b{color:#fff;font-weight:700}
+.asa-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;align-items:center}
+.asa-go{display:inline-flex;align-items:center;gap:10px;background:var(--nt-yellow);color:#1A1A1A;border:3px solid #1A1A1A;box-shadow:0 0 0 2px var(--nt-yellow);font-size:14.5px;font-weight:700;padding:12px 20px;border-radius:30px}
+.asa-go svg,.asa-alt svg{width:14px;height:14px}
+.asa-alt{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:14.5px;font-weight:700;padding:13px 20px;border-radius:30px;border:1px solid rgba(255,255,255,.3)}
+.asa-alt:hover{background:rgba(255,255,255,.08)}
+.asa-stats{display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.14);padding-left:30px}
+@media(max-width:860px){.asa-stats{border-left:none;padding-left:0}}
+.asa-stats div{padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
+.asa-stats div:first-child{border-top:none;padding-top:0}
+.asa-stats b{display:block;font-size:36px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.asa-stats b.y{color:var(--nt-yellow)} .asa-stats b.bl{color:#6AA8FF} .asa-stats b.r{color:#FF6B75}
+.asa-stats span{display:block;font-size:12.5px;color:rgba(255,255,255,.66);margin-top:6px;line-height:1.4}
+.band-kw{margin-top:12px!important;padding-top:12px;border-top:1px solid var(--hair);font-size:14.5px!important}
+.band-kw b{color:var(--vpn-ink);font-weight:700}
+.kwsec,.next,.kwall{margin-top:96px}
+.cmpt{margin-top:28px;background:#fff;border:1px solid var(--hair);border-radius:22px;overflow:hidden}
+.cmpt-h,.cmpt-r{display:grid;grid-template-columns:150px 1fr 1fr 28px;gap:20px;align-items:center;padding:16px 24px;text-align:left;width:100%}
+.cmpt-h{background:var(--bg2);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.cmpt-h .f,.cmpt-h .b{text-transform:none;letter-spacing:-.01em;font-size:14px;font-weight:800;display:flex;align-items:center}
+.cmpt-h .f{color:var(--sec)} .cmpt-h .b{color:var(--vpn-ink)}
+.cmpt-r{border-top:1px solid var(--hair);font-size:14.5px;line-height:1.45;color:var(--ink2);transition:.15s}
+.cmpt-r:hover{background:#FFFCE6}
+.cmpt-r .s{font-weight:700;color:var(--ink)}
+.cmpt-r i{font-style:normal;color:var(--ink3);font-weight:700;transition:.15s}
+.cmpt-r:hover i{color:var(--ink);transform:translateX(3px)}
+@media(max-width:760px){.cmpt-h{display:none}.cmpt-r{grid-template-columns:1fr;gap:4px}.cmpt-r i{display:none}
+  .cmpt-r span:nth-child(2)::before{content:'“scam protection”: ';font-weight:700;color:var(--ink)}
+  .cmpt-r span:nth-child(3)::before{content:'“vpn”: ';font-weight:700;color:var(--vpn-ink)}}
+.next-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+@media(max-width:860px){.next-steps{grid-template-columns:1fr}}
+.next-steps div{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:24px 24px 26px;position:relative}
+.next-steps div::before{content:'';position:absolute;left:24px;right:24px;top:0;height:4px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--nt-yellow) 50%,var(--vpn) 50%)}
+.next-steps b{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--vpn-ink)}
+.next-steps h4{font-size:19px;font-weight:700;letter-spacing:-.02em;margin:8px 0 8px}
+.next-steps p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.pdot.s{background:var(--nt-yellow);box-shadow:0 0 0 1.5px #1A1A1A}
+.qr img{width:135px;height:135px}
+.herobtns .qr img{width:90px;height:90px}
+
+/* ---- the two-phone stage ---- */
+html:not(.embed) #view-proto .stage{display:none}
+.p3{display:grid;grid-template-columns:minmax(0,1fr) 370px;height:calc(100vh - 58px);height:calc(100svh - 58px)}
+.p3-stage{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;padding:18px 20px 12px}
+.p3-mtools{display:none;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.p3-mtog{display:none;margin:0 auto 12px;background:#fff;border:1px solid #E1E0DD;border-radius:22px;padding:3px;gap:3px}
+.p3-mtog button{padding:8px 16px;border-radius:18px;font:700 13px/1 'Inter',sans-serif;color:var(--ink2)}
+.p3-mtog button[data-one=scam].on{background:var(--nt-yellow);color:#1A1A1A;box-shadow:inset 0 0 0 2px #1A1A1A}
+.p3-mtog button[data-one=vpn].on{background:var(--vpn);color:#fff}
+.duo{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;gap:22px}
+.flow{display:flex;flex-direction:column;align-items:center;gap:10px}
+.kwcard{width:196px;flex:none;align-self:center;border-radius:16px;padding:16px 16px 18px;border:1px solid}
+.kwcard.scam{background:var(--sec-bg);border-color:rgba(26,26,26,.18)} .kwcard.vpn{background:var(--vpn-bg);border-color:rgba(15,113,239,.25)}
+.kwcard .k{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.kwcard .q{display:flex;align-items:flex-start;gap:7px;font-size:17px;line-height:1.25;font-weight:800;letter-spacing:-.02em;margin:9px 0 10px}
+.kwcard .q svg{width:15px;height:15px;flex:none;margin-top:3px}
+.kwcard.scam .q{color:#1A1A1A} .kwcard.vpn .q{color:var(--vpn-ink)}
+.kwcard p{font-size:12.5px;line-height:1.5;color:var(--ink2)}
+.kwcard .who{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px}
+.kwcard .fl{font-size:11.5px;font-weight:700;color:var(--ink2);margin-top:2px}
+.kwpick{display:flex;flex-wrap:wrap;gap:5px}
+.kwpick button{font:600 11.5px/1 'Inter',sans-serif;padding:6px 9px;border-radius:12px;background:#fff;border:1px solid var(--hair2);color:var(--ink2)}
+.kwcard.scam .kwpick button.on{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+.kwcard.vpn .kwpick button.on{background:var(--vpn);color:#fff;border-color:var(--vpn)}
+.kwpill{display:none;align-items:center;gap:7px;font-weight:800;font-size:13px;padding:7px 14px 7px 11px;border-radius:20px;white-space:nowrap}
+.kwpill svg{width:13px;height:13px}
+.kwpill.scam{background:var(--sec-bg);color:#1A1A1A} .kwpill.vpn{background:var(--vpn-bg);color:var(--vpn-ink)}
+.kwpill small{font-weight:600;opacity:.7;font-size:11px}
+.kwpill select{appearance:none;-webkit-appearance:none;border:none;background:transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.6' fill='none'/></svg>") no-repeat right 2px center;padding:0 16px 0 0;font:800 13px/1.2 'Inter',sans-serif;color:inherit;cursor:pointer}
+.p3.top .kwcard{display:none} .p3.top .kwpill{display:inline-flex}
+.pbox{position:relative;flex:none}
+.pbox iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform-origin:0 0;border-radius:46px;background:transparent}
+.pbox::after{content:'';position:absolute;inset:-5px;border-radius:52px;pointer-events:none}
+.flow.scam .pbox::after{box-shadow:0 0 0 3px var(--sec-ring),0 30px 60px -28px rgba(26,26,26,.35)}
+.flow.vpn .pbox::after{box-shadow:0 0 0 3px var(--vpn),0 30px 60px -28px rgba(15,113,239,.45)}
+.p3-bar{flex:none;min-height:46px;display:flex;align-items:center;justify-content:center;margin-top:12px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.step{position:relative;padding:8px 13px;border-radius:20px;border:1px solid #E1E0DD;background:#fff;font:600 12px/1 'Inter',sans-serif;color:var(--ink2);transition:.14s}
+.step:hover{color:var(--ink);border-color:#C9C7C3}
+.step.on{background:#1A1A1A;border-color:#1A1A1A;color:#fff}
+.step.diff::after{content:'';position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(90deg,var(--nt-yellow) 50%,var(--vpn) 50%);box-shadow:0 0 0 2px var(--bg)}
+.hcap{display:flex;align-items:center;gap:14px;background:#1A1A1A;color:#fff;border-radius:16px;padding:10px 12px 10px 18px;max-width:760px;width:100%}
+.hcap p{flex:1;font-size:13.5px;line-height:1.4;font-weight:600;margin:0}
+.hcap .bar{width:64px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden;flex:none}
+.hcap .bar i{display:block;height:100%;width:0;background:var(--nt-yellow);transition:width .2s linear}
+.hcap button{font-size:12px;font-weight:700;padding:7px 13px;border-radius:14px;background:rgba(255,255,255,.14)}
+.p3-panel{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);overflow-y:auto;min-height:0}
+.p3-panel .pn{padding:24px 26px 40px}
+.sh{position:relative;overflow:hidden;border-radius:16px;margin-bottom:24px;background:#1A1A1A;color:#fff;box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
+.sh::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(70% 90% at 0% 0%,rgba(254,235,41,.22),transparent 70%),radial-gradient(60% 80% at 100% 100%,rgba(15,113,239,.3),transparent 70%)}
+.sh>*{position:relative}
+.sh summary{list-style:none;cursor:pointer;padding:15px 16px 14px}
+.sh summary::-webkit-details-marker{display:none}
+.sh .top{display:flex;align-items:flex-start;gap:10px}
+.sh .lab{flex:1;font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.sh .lab small{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--nt-yellow);margin-bottom:4px}
+.sh .more{flex:none;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.75);padding:5px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.2);white-space:nowrap}
+.sh[open] .more .o{display:none} .sh:not([open]) .more .c{display:none}
+.sh .lit{display:flex;align-items:center;gap:6px;margin-top:13px}
+.sh .lit button{width:30px;height:26px;border-radius:8px;font:800 11px/1 'Inter',sans-serif;background:rgba(255,255,255,.08);color:rgba(255,255,255,.45);transition:.2s}
+.sh .lit button:hover{color:#fff}
+.sh .lit button.on{background:var(--nt-yellow);color:#1A1A1A;box-shadow:0 0 0 3px rgba(254,235,41,.25),0 0 18px rgba(254,235,41,.5)}
+.sh .lit span{margin-left:auto;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);white-space:nowrap}
+.sh ol{list-style:none;padding:0 16px 12px;margin:0}
+.sh li{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;line-height:1.4;color:rgba(255,255,255,.82);cursor:pointer}
+.sh li:hover{color:#fff}
+.sh li.on{color:#fff;font-weight:700}
+.sh li .n{font-weight:800;color:rgba(255,255,255,.4);font-size:11px;width:16px;flex:none}
+.sh li.on .n{color:var(--nt-yellow)}
+.sh li .t{flex:1}
+.sh li .o{font-weight:700;color:var(--nt-yellow);font-size:11.5px;white-space:nowrap}
+.pn-badge{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-badge i{width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--nt-yellow) 50%,var(--vpn) 50%)}
+.pn-badge.same i{background:#C4CCD4}
+.kc{border-radius:14px;padding:15px 16px 15px 17px;margin-top:12px;border-left:4px solid}
+.kc.scam{background:var(--sec-bg);border-color:#1A1A1A} .kc.vpn{background:var(--vpn-bg);border-color:var(--vpn)}
+.kc .kk{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;letter-spacing:-.01em}
+.kc.scam .kk{color:#1A1A1A} .kc.vpn .kk{color:var(--vpn-ink)}
+.kc .kk svg{width:12px;height:12px}
+.kc p{font-size:13.5px;line-height:1.55;color:#2E353B;margin:7px 0 0}
+.kc p b{color:var(--panel-ink);font-weight:700}
+.kc .ko{display:flex;align-items:baseline;gap:8px;margin-top:10px;padding-top:9px;border-top:1px solid rgba(0,0,0,.08)}
+.kc .ko span{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-muted)}
+.kc .ko b{font-size:15.5px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.kc.scam .ko b{color:#1A1A1A} .kc.vpn .ko b{color:var(--vpn-ink)}
+.pn-note{margin-top:14px;font-size:12.5px;line-height:1.55;color:#2E353B;background:#F6F4EF;border-radius:12px;padding:12px 14px}
+.pn-also{margin-top:20px;border-top:1px solid var(--panel-line);padding-top:16px}
+.pn-also .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-also .row{display:flex;gap:10px;align-items:baseline;margin-top:9px;font-size:13px;line-height:1.4;color:#2E353B;font-weight:600}
+.pn-also .row .o{margin-left:auto;font-weight:700;color:var(--accent-ink);white-space:nowrap;font-size:12.5px}
+.drawer-btn{display:none;position:fixed;right:16px;bottom:16px;z-index:80;background:#1A1A1A;color:#fff;font:700 13px/1 'Inter',sans-serif;padding:13px 18px;border-radius:24px;box-shadow:0 10px 26px rgba(0,0,0,.3)}
+.drawer-btn i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:linear-gradient(90deg,var(--nt-yellow) 50%,var(--vpn) 50%)}
+@media(max-width:1249px){
+  .p3{grid-template-columns:minmax(0,1fr)}
+  .p3-panel{position:fixed;top:58px;right:0;bottom:0;width:min(380px,92vw);transform:translateX(102%);transition:transform .25s;z-index:75;box-shadow:-24px 0 50px rgba(0,0,0,.16)}
+  body.drawer .p3-panel{transform:none}
+  body.proto .drawer-btn{display:block}
+}
+@media(max-width:899px){ .p3-mtools{display:flex} }
+@media(max-width:759px){
+  .p3{height:auto;min-height:calc(100svh - 58px)}
+  .p3-stage{padding:14px 12px 80px}
+  .p3-mtog{display:inline-flex}
+  .p3.one .flow{display:none} .p3.one .flow.show{display:flex}
+  .kwcard{display:none!important} .kwpill{display:none!important}
+  .duo{flex:none}
+}
+/* ---- embed: the iframe is just the phone ---- */
+html.embed,html.embed body{background:transparent!important;overflow:hidden}
+html.embed .nav,html.embed #view-over,html.embed .p3,html.embed .drawer-btn{display:none!important}
+html.embed #view-proto{display:block}
+html.embed .stage{display:block;min-height:0}
+html.embed .phonecol{padding:0;display:block}
+html.embed .phone{box-shadow:none}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <img class="mk" src="img/logo.png" alt="Norton">
+      <i class="sep"></i>
+      <b>Search to Pro</b><span>· Norton 360</span>
+    </div>
+    <div class="nav-tools">
+      <div class="seg" data-hseg="lang"><button data-hlang="en" class="on">EN</button><button data-hlang="de">DE</button><button data-hlang="cs">CS</button></div>
+      <div class="seg" data-hseg="theme"><button data-htheme="light" class="on">Light</button><button data-htheme="dark">Dark</button></div>
+      <button class="hdemo-btn" data-hdemo><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <!-- month + year = the day you build, not this file --><div class="eyebrow">Apple Ads × Onboarding · October 2026</div>
+    <h1>Norton 360</h1>
+    <p class="lede">Some people search for scam protection, others for a VPN. Show each of them a flow that answers the search, and turn more of them into subscribers.</p>
+    <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow, your App Store listing and your Apple Ads keyword data</div>
+    <div class="herobtns"><div class="qr"><img src="img/qr.svg" alt="QR code for the prototype"><span><b>Open it on your phone</b>Scan to try both flows in your hand.</span></div><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+      <div class="stat"><b>2</b><span>keyword flows, with<br>5 ideas built into each</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+    <div class="fb fb2">
+      <div class="fb-col">
+        <div class="fb-k">Built in Adapty Flow Builder</div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p></div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Nearly 500 apps</b> build their paywalls and onboarding in it.</p></div>
+      </div>
+      <div class="fb-col asa-col">
+        <div class="fb-k">Run with Adapty Ads Manager</div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p>Trusted by teams managing <b>$100M+ in Apple Ads spend</b>.</p></div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>39 Norton 360 searches</b> reviewed in the US, 12 September – 11 October 2026.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="asa">
+  <div class="wrap">
+    <div class="asa-card">
+      <div>
+        <div class="sec-k">New · Apple Ads × your flow</div>
+        <h2>Show every search <em>its own flow</em>.</h2>
+        <p>Someone who searched “scam protection” and someone who searched “vpn” want different things, but today they get the same welcome screen and the same plan picker. <b>Adapty Ads Manager passes the Apple Ads keyword into your flow</b>, so each search lands on its own version, without an app release.</p>
+        <div class="asa-btns">
+          <button class="asa-go" data-scroll="keywords">See all 39 searches <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+          <button class="asa-alt" data-view="proto">See both keyword flows <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="asa-stats">
+        <div><b class="r">0%</b><span>your share of “vpn”, where one app holds 96%</span></div>
+        <div><b class="y">4</b><span>searches that describe your app with no bidder at all, including “scam protection”, your app’s name in 70+ markets</span></div>
+        <div><b class="bl">7%</b><span>of “norton” goes to LifeLock Identity, another Gen app</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We searched the way a new user does, then rebuilt what happens after the tap.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we get to see what moves conversion and ARPU across the market rather than inside one app. For Norton 360 we looked at two things. First, your app: we installed it and walked from the welcome screen to the plan picker and the offer behind it. Second, your Apple Ads: which searches you show up on, which you win, and which nobody bids on.</p>
+    <p class="body">What follows is five ideas for the flow you have, and two keyword flows that show what happens when each search gets its own version. Every one is a hypothesis you can A/B test, and all of it is clickable. <b>The prototype uses your design: your wordmark, illustrations, column table, green ticks and yellow Continue.</b></p>
+    <div class="notes">
+      <div class="note"><h4>We did not redesign your app</h4><p>Every screen uses your own parts. Only the sequence and the words around them change.</p></div>
+      <div class="note"><h4>You may have tested some of this</h4><p>We cannot see your experiment history. If you have already run one of these, tell us what you found and we will go deeper on the rest.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The five ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Each one opens that screen in both keyword flows.</p>
+    <div class="ideas">
+      <button class="idea" data-jump="paywall">
+        <span class="no">01</span>
+        <span>
+          <h3>Never open a VPN search on the plan without VPN</h3>
+          <p>In our walk-through the plan picker opened on Norton Mobile Security at 17.99 € a year, the one column with a red cross next to Secure VPN. Someone who searched “vpn” sees their feature crossed out first. Open on Norton 360 for Mobile and put Secure VPN at the top of the table.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+      <button class="idea" data-jump="welcome">
+        <span class="no">02</span>
+        <span>
+          <h3>Match the first screen to the search</h3>
+          <p>Every install lands on “Welcome to Norton 360”, about banking, browsing and shopping, whether they typed “vpn” or “scam protection”. Lead the welcome screen and the plan picker with what they searched for, using your own feature lines.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +15–20%</b><span>to purchase</span></span>
+      </button>
+      <button class="idea" data-jump="offer">
+        <span class="no">03</span>
+        <span>
+          <h3>Let the offer on close follow the plan they chose</h3>
+          <p>Closing the plan picker brought up 7 days free on Norton 360 Deluxe at 119.99 € a year, and the line read “$0 for 7 days. Then 119.99 €/year”: two currencies in one sentence. Offer the trial on the plan they had selected, in one currency, with what happens on day 7.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>second chance</span></span>
+      </button>
+      <button class="idea" data-jump="q1">
+        <span class="no">04</span>
+        <span>
+          <h3>Ask two questions, then pick the plan for them</h3>
+          <p>“Get started” goes straight to a three-column table. Your website already runs a “Help Me Choose” quiz. Ask what they want to protect and on how many devices, read it back, then open the table on the plan that fits.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+      <button class="idea" data-jump="paywall">
+        <span class="no">05</span>
+        <span>
+          <h3>Put your 4.7 from 183K ratings on the plan picker</h3>
+          <p>Your App Store rating and your AV-Comparatives “Approved Mobile Security 2026” appear nowhere between install and payment. The plan picker has a lot of empty space above the price. Use it for your own proof.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>Run together, these five work on the same funnel at three points: what the first screen says to each search, which plan the table opens on, and what happens when someone closes it.</p>
+        <p class="band-kw"><b>On top of that,</b> Adapty’s Apple Ads research puts keyword-matched paywalls at <b>+30–50% conversion</b> over one paywall for every search.</p>
+      </div>
+      <div class="nums">
+        <div><b>+20%</b><span>CR to purchase</span></div>
+        <div><b>+25%</b><span>ARPU</span></div>
+      </div>
+    </div>
+
+    <div class="kwsec">
+      <div class="sec-k">Two keywords, two flows</div>
+      <h2>The same app, answering two different searches.</h2>
+      <p class="body">The five ideas sit underneath both. On four screens, what the user sees depends on what they typed into the App Store.</p>
+      <div class="cmpt">
+        <div class="cmpt-h"><span>Screen</span><span class="f"><i class="pdot s"></i>“scam protection”</span><span class="b"><i class="pdot v"></i>“vpn”</span></div>
+        <button class="cmpt-r" data-kwjump="welcome"><span class="s">Welcome</span><span>“Stop scams in your texts, calls and browser”, on your shield illustration</span><span>“A VPN with Norton security built in”, on the globe from your offer screen</span><i>→</i></button>
+        <button class="cmpt-r" data-kwjump="q1"><span class="s">What to protect</span><span>Scam texts and calls already ticked</span><span>Public Wi‑Fi already ticked</span><i>→</i></button>
+        <button class="cmpt-r" data-kwjump="paywall"><span class="s">Plan picker</span><span>Genie Scam Protection on the first row. Opens on the plan their answers fit</span><span>Secure VPN on the first row. Opens on 360 for Mobile, never on the plan without VPN</span><i>→</i></button>
+        <button class="cmpt-r" data-kwjump="offer"><span class="s">Offer on close</span><span>7 days free, scam protection leads the list</span><span>7 days free, Secure VPN leads the list</span><i>→</i></button>
+      </div>
+    </div>
+
+    <div class="kwall" id="keywords">
+      <div class="sec-k">All 39 searches</div>
+      <h2>Where you win, where you don’t, and where nobody bids.</h2>
+      <p class="body">Every search Norton 360 showed up on in the US between 12 September and 11 October 2026, with your share of voice. The two flows above are built for the open and losing groups.</p>
+<div class="kwt" id="keywords">
+      <div class="kwt-g">
+        <div class="kwt-gh"><span class="tagk win">Where you win</span><h4>Your brand and the core security searches</h4><span>Strong share. Keep it, and give these installs a first screen that says what they searched.</span></div>
+        <div class="kr hd"><span>Search</span><span>Popularity</span><span>Norton share of voice</span><span>Who else shows up</span></div>
+        <div class="kr"><span class="k">security</span><span class="pop">21.3</span><span class="sov"><span class="b"><i style="width:76%"></i></span><em>76%</em></span><span class="who">McAfee 24%</span></div>
+        <div class="kr"><span class="k">norton 360 security</span><span class="pop">6.2</span><span class="sov"><span class="b"><i style="width:79%"></i></span><em>79%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">norton 360 security &amp; vpn</span><span class="pop">6.2</span><span class="sov"><span class="b"><i style="width:78%"></i></span><em>78%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">norton<small>LifeLock is also Gen, so Gen bids against itself here</small></span><span class="pop">4.7</span><span class="sov"><span class="b"><i style="width:82%"></i></span><em>82%</em></span><span class="who">LifeLock Identity 7% · McAfee 6%</span></div>
+        <div class="kr"><span class="k">security app</span><span class="pop">3.1</span><span class="sov"><span class="b"><i style="width:97%"></i></span><em>97%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">phone security</span><span class="pop">1.9</span><span class="sov"><span class="b"><i style="width:100%"></i></span><em>100%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">virus protect</span><span class="pop">1.8</span><span class="sov lo"><span class="b"><i style="width:41%"></i></span><em>41%</em></span><span class="who">Other apps share the rest</span></div>
+        <div class="kr"><span class="k">totalav<small>competitor brand</small></span><span class="pop">1.7</span><span class="sov"><span class="b"><i style="width:100%"></i></span><em>100%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">antivirus protection</span><span class="pop">1.6</span><span class="sov"><span class="b"><i style="width:100%"></i></span><em>100%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">antivirus</span><span class="pop">1.3</span><span class="sov"><span class="b"><i style="width:90%"></i></span><em>90%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">cybersecurity</span><span class="pop">1.0</span><span class="sov"><span class="b"><i style="width:100%"></i></span><em>100%</em></span><span class="who"></span></div>
+      </div>
+      <div class="kwt-g">
+        <div class="kwt-gh"><span class="tagk lose">Where someone else wins</span><h4>Searches for things Norton 360 does</h4><span>You are at 0% on all four. “vpn” already has its own first screen in the VPN flow.</span></div>
+        <div class="kr"><span class="k">vpn</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:0"></i></span><em>0%</em></span><span class="who">One app holds 96%</span></div>
+        <div class="kr"><span class="k">malware</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:0"></i></span><em>0%</em></span><span class="who">McAfee 100%</span></div>
+        <div class="kr"><span class="k">phone cleaner</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:0"></i></span><em>0%</em></span><span class="who">McAfee 50% · a cleaner app 46%</span></div>
+        <div class="kr"><span class="k">spam call blocker</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:0"></i></span><em>0%</em></span><span class="who">Three call-blocker apps share it</span></div>
+      </div>
+      <div class="kwt-g">
+        <div class="kwt-gh"><span class="tagk open">Where nobody bids yet</span><h4>Open searches that describe your app</h4><span>No advertiser on any of them.</span></div>
+        <div class="kr"><span class="k">scam protection<small>your app is named “Norton 360: Scam Protection” in 70+ markets</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:0"></i></span><em>open</em></span><span class="who">No bidders</span></div>
+        <div class="kr"><span class="k">identity theft protection</span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:0"></i></span><em>open</em></span><span class="who">No bidders</span></div>
+        <div class="kr"><span class="k">wifi security</span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:0"></i></span><em>open</em></span><span class="who">No bidders</span></div>
+        <div class="kr"><span class="k">virus cleaner</span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:0"></i></span><em>open</em></span><span class="who">No bidders</span></div>
+      </div>
+      <div class="kwt-g">
+        <div class="kwt-gh"><span class="tagk leak">Worth a second look</span><h4>Spend that does not match the app, or wins little</h4><span>Unrelated searches, other VPN brands and broad VPN terms.</span></div>
+        <div class="kr"><span class="k">http<small>unrelated</small></span><span class="pop">19.1</span><span class="sov lo"><span class="b"><i style="width:7%"></i></span><em>7%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">securities<small>unrelated: finance</small></span><span class="pop">7.2</span><span class="sov lo"><span class="b"><i style="width:60%"></i></span><em>60%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">north · fine · forbidden<small>unrelated</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:48%"></i></span><em>48 · 12 · 32%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">privacy.paramount.com · privacy_policy.html · privacy.ea.com · privacy.html<small>unrelated</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:30%"></i></span><em>2–30%</em></span><span class="who"></span></div>
+        <div class="kr"><span class="k">Other VPN brands<small>happ - proxy utility · jumpjumpvpn · vpn cat · x-vpn · lotus vpn · prizma vpn · v2ray client · nordvpn</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:31%"></i></span><em>2–31%</em></span><span class="who">Fits the VPN flow</span></div>
+        <div class="kr"><span class="k">Broad VPN terms<small>vpn fast · super unlimited proxy · fast vpn super</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:5%"></i></span><em>1 · 0.6 · 5%</em></span><span class="who">Spend with almost no share</span></div>
+      </div>
+    </div>
+    <p class="asa-note">Apple Ads, US storefront, 12 September – 11 October 2026. Popularity and share of voice from public observation of your ads, not from your account. A dash means we have no popularity figure for that search.</p>
+
+    <div class="dos">
+      <div class="do"><div class="k">VPN FLOW</div><h4>Send VPN searches somewhere that talks about VPN</h4><p>“vpn”, “wifi security” and the VPN brands you already bid on would land on a welcome screen and a plan that lead with Secure VPN.</p></div>
+      <div class="do"><div class="k">SECURITY FLOW</div><h4>Bid on your own name</h4><p>“scam protection” is what your app is called in 70+ markets, and nobody bids on it. The prototype has its first screen ready.</p></div>
+      <div class="do"><div class="k">BOTH</div><h4>Move spend off searches that do not fit</h4><p>“http”, “securities”, the privacy-policy URLs and “north / fine / forbidden” are not looking for Norton. And “norton” is shared with LifeLock, another Gen app.</p></div>
+    </div>
+
+
+    </div>
+
+    <div class="next">
+      <div class="sec-k">What happens next</div>
+      <h2>From first call to first test in two weeks.</h2>
+      <div class="next-steps">
+        <div><b>Day 1</b><h4>Your name, defended</h4><p>Your ad takes the empty “scam protection” slot, and spend on searches that don’t fit the app stops.</p></div>
+        <div><b>Week 1</b><h4>Keyword flows live</h4><p>After a one-time SDK setup, scam and VPN searches get their own welcome screen and plan picker. No app release.</p></div>
+        <div><b>Week 2</b><h4>A/B tests running</h4><p>Every keyword measured on revenue, not installs, with tests running per keyword.</p></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try both flows in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open both keyword flows <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are Adapty’s expected effect from teardowns and A/B tests across subscription apps, not measured lift for Norton. Every price, rating, plan, feature line and award here and in the prototype comes from Norton’s own App Store listing, website and in-app screens; prices are the euro prices on your in-app screens. Keyword data is from public observation of your Apple Ads in the US, not from your account.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="p3 side one" id="p3">
+  <div class="p3-stage" id="p3Stage">
+    <div class="p3-mtools">
+      <div class="seg" data-hseg="lang"><button data-hlang="en" class="on">EN</button><button data-hlang="de">DE</button><button data-hlang="cs">CS</button></div>
+      <div class="seg" data-hseg="theme"><button data-htheme="light" class="on">Light</button><button data-htheme="dark">Dark</button></div>
+      <button class="hdemo-btn" data-hdemo><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="p3-mtog" id="mtog"><button data-one="scam" class="on">“scam protection”</button><button data-one="vpn">“vpn”</button></div>
+    <div class="duo" id="duo">
+      <div class="kwcard scam">
+        <div class="k">Apple Ads keyword</div>
+        <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span data-kwq="scam">“scam protection”</span></div>
+        <p>Someone who got a scam text or call and wants it to stop. Your app’s name in 70+ markets, and nobody bids on it.</p>
+        <span class="who">Try another security search</span>
+        <div class="kwpick" data-pick="scam"></div>
+      </div>
+      <div class="flow scam show" data-flow="scam">
+        <label class="kwpill scam"><small>Searched</small><select data-sel="scam" aria-label="Apple Ads keyword"></select><small>· Apple Ads</small></label>
+        <div class="pbox"><iframe src="?embed=1&amp;flow=scam" title="Flow for the keyword scam protection"></iframe></div>
+      </div>
+      <div class="flow vpn" data-flow="vpn">
+        <label class="kwpill vpn"><small>Searched</small><select data-sel="vpn" aria-label="Apple Ads keyword"></select><small>· Apple Ads</small></label>
+        <div class="pbox"><iframe src="?embed=1&amp;flow=vpn" title="Flow for the keyword vpn"></iframe></div>
+      </div>
+      <div class="kwcard vpn">
+        <div class="k">Apple Ads keyword</div>
+        <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span data-kwq="vpn">“vpn”</span></div>
+        <p>Someone on public Wi‑Fi who wants a private connection. You hold 0% of this search today.</p>
+        <span class="who">Try another VPN search</span>
+        <div class="kwpick" data-pick="vpn"></div>
+      </div>
+    </div>
+    <div class="p3-bar" id="p3Bar">
+      <div class="steps" id="hSteps"></div>
+      <div class="hcap hidden" id="hCap"><p id="hCapT"></p><div class="bar"><i id="hProg"></i></div><button id="hStop">Stop</button></div>
+    </div>
+  </div>
+  <aside class="p3-panel"><div class="pn" id="hPanel"></div></aside>
+</div>
+<button class="drawer-btn" id="drawerBtn"><i></i>Ideas for this step</button>
+
+<!-- the phone each iframe renders (?embed=1&flow=scam|vpn) -->
+<div class="stage">
+  <div class="phonecol">
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar ink" id="sbar">
+          <span>9:41</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar ink" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="nt-toast" id="toast"></div>
+        <div class="screenwrap">
+<!-- WELCOME — their layout; headline follows the search -->
+<section class="scr scr--wel" data-id="welcome">
+  <div class="scr-top"><img class="nt-logo" src="img/logo.png" alt="norton"></div>
+  <div class="scr-body">
+    <img class="nt-ill" id="welIll" src="img/ill-shield.png" alt="">
+    <h1 class="nt-h" id="welH"></h1>
+    <p class="nt-sub" id="welS"></p>
+  </div>
+  <div class="scr-foot">
+    <p class="nt-legal" data-th="wel.legal"></p>
+    <button class="nt-btn" id="welGo" data-t="wel.go"></button>
+    <button class="nt-btn2" id="welSign" data-t="wel.sign"></button>
+  </div>
+</section>
+
+<!-- Q1 — what to protect -->
+<section class="scr scr--q" data-id="q1">
+  <div class="scr-top">
+    <div class="nt-qtop"><button class="nt-back" data-back aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nt-prog"><i class="on"></i><i></i></div></div>
+    <h2 class="nt-h" data-t="q1.h"></h2>
+    <p class="nt-sub" data-t="q1.sub"></p>
+  </div>
+  <div class="scr-body"><div class="nt-opts" id="q1opts"></div><div style="height:10px"></div></div>
+  <div class="scr-foot"><button class="nt-btn" id="q1Go" data-t="cont"></button></div>
+</section>
+
+<!-- Q2 — how many devices -->
+<section class="scr scr--q" data-id="q2">
+  <div class="scr-top">
+    <div class="nt-qtop"><button class="nt-back" data-back aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nt-prog"><i class="on"></i><i class="on"></i></div></div>
+    <h2 class="nt-h" data-t="q2.h"></h2>
+    <p class="nt-sub" data-t="q2.sub"></p>
+  </div>
+  <div class="scr-body"><div class="nt-opts" id="q2opts"></div></div>
+  <div class="scr-foot"><button class="nt-btn" id="q2Go" data-t="cont"></button></div>
+</section>
+
+<!-- LOADER — reads the answers back -->
+<section class="scr" data-id="loader">
+  <div class="scr-body">
+    <div class="nt-loadwrap">
+      <div class="nt-ring"><svg viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="58"/><circle class="arc" id="ldArc" cx="66" cy="66" r="58"/></svg>
+        <div class="mid"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div></div>
+      <h2 class="nt-h nt-load-h" data-t="ld.h"></h2>
+      <div class="nt-lsteps" id="ldSteps"></div>
+      <div class="nt-rate"><span class="st">★★★★★</span><span data-th="rate"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYWALL — their plan picker -->
+<section class="scr scr--pay" data-id="paywall">
+  <div class="scr-top">
+    <div class="nt-head"><h3 data-t="pw.title"></h3><button class="nt-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  </div>
+  <div class="scr-body">
+    <h2 class="nt-payh" id="payH"></h2>
+    <div class="nt-proof"><span class="st">★★★★★</span><span data-th="rate"></span><span class="av"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>AV-Comparatives · Approved 2026</span></div>
+    <div class="nt-tbl" id="tbl"></div>
+    <p class="nt-paylegal" data-th="pw.legal"></p>
+  </div>
+  <div class="scr-foot">
+    <p class="nt-price" id="payPrice"></p>
+    <button class="nt-btn" id="payCta" data-t="cont"></button>
+  </div>
+</section>
+
+<!-- OFFER — their exclusive-offer screen, trial on the plan they chose -->
+<section class="scr scr--offer sheet" data-id="offer">
+  <div class="scr-top"><div class="nt-ohead"><button class="nt-x" id="offClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div>
+  <div class="scr-body">
+    <img class="nt-ill sm" src="img/ill-globe.png" alt="">
+    <span class="nt-badge" data-t="of.badge"></span>
+    <h2 class="nt-oh" id="ofH"></h2>
+    <div class="nt-ohr"></div>
+    <div id="ofChk"></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot">
+    <div class="nt-oplan" id="ofPlan"></div>
+    <p class="nt-oprice" id="ofPrice"></p>
+    <div style="height:14px"></div>
+    <button class="nt-btn" id="offerCta" data-t="cont"></button>
+  </div>
+</section>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+var EMBED = /[?&]embed/.test(location.search);
+if(EMBED) document.documentElement.classList.add('embed');
+var FLOW = (location.search.match(/[?&]flow=(scam|vpn)/)||[])[1] || 'scam';
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS = ['en','de','cs'];
+var T = {
+ 'wel.legal':["By proceeding, you agree to the <u>License and Services Agreement</u> and <u>Privacy Notices</u>.","Mit dem Fortfahren stimmst du der <u>Lizenz- und Servicevereinbarung</u> und den <u>Datenschutzhinweisen</u> zu.","Pokračováním souhlasíte s <u>Licenční smlouvou a smlouvou o službách</u> a <u>Oznámeními o ochraně soukromí</u>."],
+ 'wel.go':  ["Get started","Los geht’s","Začít"],
+ 'wel.sign':["Sign in","Anmelden","Přihlásit se"],
+ 'cont':    ["Continue","Weiter","Pokračovat"],
+ 'q1.h':    ["What do you want to protect first?","Was möchtest du zuerst schützen?","Co chcete chránit nejdřív?"],
+ 'q1.sub':  ["Pick all that apply. We’ll suggest a plan.","Wähle alles Passende. Wir schlagen dir einen Plan vor.","Vyberte vše, co platí. Doporučíme vám plán."],
+ 'q2.h':    ["How many devices do you want to protect?","Wie viele Geräte möchtest du schützen?","Kolik zařízení chcete chránit?"],
+ 'q2.sub':  ["Phones, tablets, PCs and Macs all count.","Handys, Tablets, PCs und Macs zählen alle.","Počítají se telefony, tablety, PC i Macy."],
+ 'ld.h':    ["Building your protection","Dein Schutz wird eingerichtet","Sestavujeme vaši ochranu"],
+ 'ld.dev1': ["Covering 1 device","Schutz für 1 Gerät","Ochrana pro 1 zařízení"],
+ 'ld.dev5': ["Covering up to 5 devices","Schutz für bis zu 5 Geräte","Ochrana až pro 5 zařízení"],
+ 'ld.plan': ["Your plan: {p}","Dein Plan: {p}","Váš plán: {p}"],
+ 'rate':    ["<b>4.7</b> · 183K ratings · App Store","<b>4,7</b> · 183K Bewertungen · App Store","<b>4,7</b> · 183 tis. hodnocení · App Store"],
+ 'pw.title':["Choose your plan","Wähle deinen Plan","Vyberte si plán"],
+ 'pw.rec':  ["For you","Für dich","Pro vás"],
+ 'pw.legal':["By proceeding, you accept <u>Norton's Agreement</u> and <u>Privacy Policy</u>. Your subscription renews unless canceled.","Mit dem Fortfahren akzeptierst du die <u>Norton-Vereinbarung</u> und die <u>Datenschutzrichtlinie</u>. Dein Abo verlängert sich, sofern du es nicht kündigst.","Pokračováním přijímáte <u>Smlouvu Norton</u> a <u>Zásady ochrany soukromí</u>. Předplatné se obnovuje, dokud ho nezrušíte."],
+ 'pw.price':["{m} € / month. Billed {y} € / year","{m} € / Monat. Jährlich {y} €","{m} € / měsíc. Účtováno {y} € / rok"],
+ 'of.badge':["Exclusive offer","Exklusives Angebot","Exkluzivní nabídka"],
+ 'of.hD':   ["Try an all-in-one solution now <em>free for 7 days</em>","Teste die All-in-one-Lösung jetzt <em>7 Tage gratis</em>","Vyzkoušejte komplexní řešení <em>7 dní zdarma</em>"],
+ 'of.hM':   ["Try Secure VPN and scam protection <em>free for 7 days</em>","Teste Secure VPN und Betrugsschutz <em>7 Tage gratis</em>","Vyzkoušejte Secure VPN a ochranu před podvody <em>7 dní zdarma</em>"],
+ 'of.price':["<b>0 € today.</b> {y} €/year from day 7.<br>Cancel anytime before day 7.","<b>Heute 0 €.</b> Ab Tag 7 {y} €/Jahr.<br>Jederzeit vor Tag 7 kündbar.","<b>Dnes 0 €.</b> Od 7. dne {y} €/rok.<br>Zrušit můžete kdykoli před 7. dnem."],
+ 'of.t0':   ["Today","Heute","Dnes"],
+ 'of.t0d':  ["Free, everything unlocked","Gratis, alles freigeschaltet","Zdarma, vše odemčeno"],
+ 'of.t7':   ["Day 7","Tag 7","7. den"],
+ 'of.t7d':  ["{y} €/year starts, unless you cancel before","{y} €/Jahr, außer du kündigst vorher","{y} €/rok, pokud předtím nezrušíte"],
+ 'toast.buy':["The App Store purchase sheet opens here.","Hier öffnet sich das App-Store-Kaufblatt.","Tady se otevře nákup v App Storu."],
+ 'toast.out':["Closes to the app, on the free version.","Schließt zur App, in der Gratis-Version.","Zavře se do aplikace, v bezplatné verzi."],
+ 'toast.sign':["Sign-in stays exactly as it ships.","Die Anmeldung bleibt, wie sie ist.","Přihlášení zůstává beze změny."]
+};
+/* what to protect — feeds the loader, the recommended plan and the paywall row order */
+var PROT = [
+ {k:'scam', ic:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M12 8v4M12 15.5v.01"/>',
+  t:["Texts and calls from scammers","SMS und Anrufe von Betrügern","SMS a hovory od podvodníků"],
+  l:["Genie Scam Protection for texts and calls","Genie-Betrugsschutz für SMS und Anrufe","Genie Scam Protection pro SMS a hovory"]},
+ {k:'web', ic:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
+  t:["Risky websites and apps","Riskante Websites und Apps","Rizikové weby a aplikace"],
+  l:["Device Security for risky apps and websites","Gerätesicherheit für riskante Apps und Websites","Zabezpečení zařízení proti rizikovým aplikacím a webům"]},
+ {k:'wifi', ic:'<path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"/><path d="M12 19h.01"/>',
+  t:["My connection on public Wi‑Fi","Meine Verbindung im öffentlichen WLAN","Připojení na veřejné Wi‑Fi"],
+  l:["Secure VPN for public Wi‑Fi","Secure VPN für öffentliches WLAN","Secure VPN pro veřejnou Wi‑Fi"]},
+ {k:'dark', ic:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  t:["My info on the dark web","Meine Daten im Darknet","Moje údaje na dark webu"],
+  l:["Dark web alerts for your info","Darknet-Warnungen für deine Daten","Upozornění z dark webu na vaše údaje"]}
+];
+var DEVS = [
+ {d:1, ic:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>', t:["Just this iPhone","Nur dieses iPhone","Jen tento iPhone"],
+  s:["Norton Mobile Security or Norton 360 for Mobile","Norton Mobile Security oder Norton 360 for Mobile","Norton Mobile Security nebo Norton 360 for Mobile"]},
+ {d:5, ic:'<rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 18h6M9 14v4"/><rect x="17" y="8" width="5" height="11" rx="1.5"/>', t:["Up to 5 phones, tablets, PCs or Macs","Bis zu 5 Handys, Tablets, PCs oder Macs","Až 5 telefonů, tabletů, PC nebo Maců"],
+  s:["Norton 360 Deluxe","Norton 360 Deluxe","Norton 360 Deluxe"]}
+];
+/* their plan picker, exactly as it ships: columns, rows, prices (EUR from their in-app screens) */
+var PLANS = {ms:{h:'Norton<br>Mobile<br>Security',n:'Norton Mobile Security',m:'1.5',y:'17.99',v:{dev:1,scam:1,devsec:1,vpn:0}},
+  m360:{h:'Norton<br>360 for<br>Mobile',n:'Norton 360 for Mobile',m:'5',y:'59.99',v:{dev:1,scam:1,devsec:1,vpn:1}},
+  dlx:{h:'Norton<br>360<br>Deluxe',n:'Norton 360 Deluxe',m:'10',y:'119.99',v:{dev:5,scam:1,devsec:1,vpn:1}}};
+var ROWS = {
+ dev:{t:["Protect your devices","Schütze deine Geräte","Chraňte svá zařízení"],d:["Keep a number of tablets, smartphones & PCs safe","Schütze Tablets, Smartphones und PCs","Ochrana tabletů, telefonů a PC"]},
+ scam:{t:["Genie Scam Protection","Genie Scam Protection","Genie Scam Protection"],d:["AI-powered protection against online & text scams","KI-Schutz vor Online- und SMS-Betrug","Ochrana před podvody online i v SMS pomocí AI"]},
+ devsec:{t:["Device Security","Gerätesicherheit","Zabezpečení zařízení"],d:["Protects against risky apps, websites, Wi‑Fi networks","Schützt vor riskanten Apps, Websites, WLAN-Netzen","Chrání před rizikovými aplikacemi, weby a Wi‑Fi"]},
+ vpn:{t:["Secure VPN","Secure VPN","Secure VPN"],d:["Helps to keep data & activity private even on public Wi‑Fi","Hält Daten und Aktivität privat, auch im öffentlichen WLAN","Pomáhá chránit data a aktivitu i na veřejné Wi‑Fi"]}
+};
+var CHK = {
+ dlx:[["Cover up to 5 phones, tablets, PCs, or Macs","Schütze bis zu 5 Handys, Tablets, PCs oder Macs","Chraňte až 5 telefonů, tabletů, PC nebo Maců"],
+      ["Stay private on public Wi‑Fi with Secure VPN","Bleib privat im öffentlichen WLAN mit Secure VPN","Zůstaňte v soukromí na veřejné Wi‑Fi se Secure VPN"],
+      ["Get notified if your info appears on the dark web","Erhalte eine Nachricht, wenn deine Daten im Darknet auftauchen","Dostanete upozornění, když se vaše údaje objeví na dark webu"]],
+ m360:[["Stay private on public Wi‑Fi with Secure VPN","Bleib privat im öffentlichen WLAN mit Secure VPN","Zůstaňte v soukromí na veřejné Wi‑Fi se Secure VPN"],
+      ["AI-powered protection against online & text scams","KI-Schutz vor Online- und SMS-Betrug","Ochrana před podvody online i v SMS pomocí AI"],
+      ["Protects against risky apps, websites, Wi‑Fi networks","Schützt vor riskanten Apps, Websites, WLAN-Netzen","Chrání před rizikovými aplikacemi, weby a Wi‑Fi"]]
+};
+/* the search that brought them in → welcome headline, line under it, paywall headline, first row */
+var KW = {
+ security:{p:'sec',lab:'security',ill:'shield',row:'devsec',
+  h:["Security for your iPhone, all in one app","Sicherheit für dein iPhone, alles in einer App","Zabezpečení iPhonu, vše v jedné aplikaci"],
+  s:["Scam protection, Device Security and Secure VPN, from Norton.","Betrugsschutz, Gerätesicherheit und Secure VPN von Norton.","Ochrana před podvody, zabezpečení zařízení a Secure VPN od Nortonu."],
+  ph:["Your iPhone security, in one plan","Die Sicherheit deines iPhones in einem Plan","Zabezpečení iPhonu v jednom plánu"]},
+ antivirus:{p:'sec',lab:'antivirus',ill:'shield',row:'devsec',
+  h:["Protect your iPhone from scams and risky apps","Schütze dein iPhone vor Betrug und riskanten Apps","Chraňte iPhone před podvody a rizikovými aplikacemi"],
+  s:["Device Security checks for risky apps, websites and Wi‑Fi networks.","Gerätesicherheit prüft riskante Apps, Websites und WLAN-Netze.","Zabezpečení zařízení hlídá rizikové aplikace, weby a sítě Wi‑Fi."],
+  ph:["Protection against risky apps and websites","Schutz vor riskanten Apps und Websites","Ochrana před rizikovými aplikacemi a weby"]},
+ scam:{p:'sec',lab:'scam protection',ill:'shield',row:'scam',
+  h:["Stop scams in your texts, calls and browser","Stoppe Betrug in SMS, Anrufen und im Browser","Zastavte podvody ve zprávách, hovorech i prohlížeči"],
+  s:["Genie Scam Protection uses AI to flag scam texts, calls and websites.","Genie-Betrugsschutz erkennt mit KI betrügerische SMS, Anrufe und Websites.","Genie Scam Protection pomocí AI odhalí podvodné SMS, hovory a weby."],
+  ph:["AI that spots scams before you tap","KI, die Betrug erkennt, bevor du tippst","AI, která pozná podvod dřív, než klepnete"]},
+ brand:{p:'sec',lab:'norton',ill:'shield',row:null,
+  h:["Welcome to Norton 360","Willkommen bei Norton 360","Vítejte v Norton 360"],
+  s:["All-in-one mobile security to keep you safe while you bank, browse, and shop online.","Mobile Sicherheit in einer App, damit du beim Banking, Surfen und Einkaufen sicher bist.","Komplexní mobilní zabezpečení, abyste byli v bezpečí při bankovnictví, prohlížení i nakupování."],
+  ph:["Everything Norton 360 protects, in one plan","Alles, was Norton 360 schützt, in einem Plan","Vše, co Norton 360 chrání, v jednom plánu"]},
+ totalav:{p:'sec',lab:'totalav',ill:'shield',row:'scam',
+  h:["Security and VPN from Norton, in one app","Sicherheit und VPN von Norton in einer App","Zabezpečení a VPN od Nortonu v jedné aplikaci"],
+  s:["Rated 4.7 from 183K ratings on the App Store.","Mit 4,7 bei 183K Bewertungen im App Store.","Hodnocení 4,7 ze 183 tis. hodnocení v App Storu."],
+  ph:["Scam protection, device security and VPN in one plan","Betrugsschutz, Gerätesicherheit und VPN in einem Plan","Ochrana před podvody, zabezpečení a VPN v jednom plánu"]},
+ vpn:{p:'vpn',lab:'vpn',ill:'globe',row:'vpn',
+  h:["A VPN with Norton security built in","Ein VPN mit eingebauter Norton-Sicherheit","VPN se zabezpečením od Nortonu"],
+  s:["Bank-grade encryption on every Wi‑Fi, plus scam protection in the same app.","Verschlüsselung auf Bankniveau in jedem WLAN, plus Betrugsschutz in derselben App.","Šifrování na úrovni bank v každé Wi‑Fi a k tomu ochrana před podvody."],
+  ph:["Secure VPN on every network you join","Secure VPN in jedem Netz, das du nutzt","Secure VPN v každé síti, ke které se připojíte"]},
+ wifi:{p:'vpn',lab:'wifi security',ill:'globe',row:'vpn',
+  h:["Know when your Wi‑Fi isn’t safe","Erkenne, wann dein WLAN nicht sicher ist","Zjistěte, kdy vaše Wi‑Fi není bezpečná"],
+  s:["Wi‑Fi Security checks the network you join. Secure VPN encrypts what you send.","WLAN-Sicherheit prüft das Netz. Secure VPN verschlüsselt, was du sendest.","Wi‑Fi Security zkontroluje síť. Secure VPN zašifruje, co odesíláte."],
+  ph:["Private on public Wi‑Fi, every time","Privat in jedem öffentlichen WLAN","Soukromí na každé veřejné Wi‑Fi"]},
+ nordvpn:{p:'vpn',lab:'nordvpn',ill:'globe',row:'vpn',
+  h:["A VPN, plus the security around it","Ein VPN, plus die Sicherheit drumherum","VPN a k tomu zabezpečení kolem"],
+  s:["Secure VPN and Genie Scam Protection, rated 4.7 on the App Store.","Secure VPN und Genie-Betrugsschutz, mit 4,7 im App Store bewertet.","Secure VPN a Genie Scam Protection s hodnocením 4,7 v App Storu."],
+  ph:["VPN and scam protection in one plan","VPN und Betrugsschutz in einem Plan","VPN a ochrana před podvody v jednom plánu"]},
+ fastvpn:{p:'vpn',lab:'vpn fast',ill:'globe',row:'vpn',
+  h:["Private browsing on any Wi‑Fi","Privat surfen in jedem WLAN","Soukromé prohlížení na jakékoli Wi‑Fi"],
+  s:["Secure VPN with bank-grade encryption, from Norton.","Secure VPN mit Verschlüsselung auf Bankniveau, von Norton.","Secure VPN se šifrováním na úrovni bank od Nortonu."],
+  ph:["Encrypt your connection on any Wi‑Fi","Verschlüssle deine Verbindung in jedem WLAN","Šifrujte připojení na jakékoli Wi‑Fi"]}
+};
+var KWS = {sec:['security','antivirus','scam','brand','totalav'], vpn:['vpn','wifi','nordvpn','fastvpn']};
+
+
+var KWS = {scam:['scam','security','antivirus','brand','totalav'], vpn:['vpn','wifi','nordvpn','fastvpn']};
+/* the offer list leads with what they searched for */
+CHK.m360v = CHK.m360;
+CHK.m360s = [CHK.m360[1], CHK.m360[0], CHK.m360[2]];
+
+/* ================= state (one flow per iframe) ================= */
+var PATH = FLOW==='vpn' ? 'vpn' : 'sec';
+function defaults(){ return { lang:S?S.lang:'en', theme:S?S.theme:'light', path:PATH, kw:S?S.kw:FLOW, prot: FLOW==='vpn'?['wifi']:['scam','web'], dev:1, plan:null }; }
+var S = null; S = defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+function num(x){ return S.lang==='en' ? x : String(x).replace('.',','); }
+function rec(){ if(S.dev>1 || S.prot.indexOf('dark')>=0) return 'dlx'; if(S.prot.indexOf('wifi')>=0 || S.path==='vpn') return 'm360'; return 'ms'; }
+function plan(){ return S.plan || rec(); }
+function offerPlan(){ return plan()==='ms' ? 'm360' : plan(); }
+function rowOrder(){ var base=['dev','scam','devsec','vpn'], f=KW[S.kw].row;
+  if(S.path==='vpn') f='vpn';
+  return f ? [f].concat(base.filter(function(r){ return r!==f; })) : base; }
+
+var ckS='<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>', xS='<svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+function buildQ(){
+  var li=L();
+  var a=document.getElementById('q1opts'); a.innerHTML='';
+  PROT.forEach(function(o){ var b=document.createElement('button'); b.className='nt-opt'; b.dataset.o=o.k;
+    b.innerHTML='<span class="ic"><svg viewBox="0 0 24 24">'+o.ic+'</svg></span><span>'+o.t[li]+'</span><span class="ck">'+ckS+'</span>';
+    b.addEventListener('click',function(){ var i=S.prot.indexOf(o.k); if(i>=0) S.prot.splice(i,1); else S.prot.push(o.k); S.plan=null; syncScreen(); });
+    a.appendChild(b); });
+  var c=document.getElementById('q2opts'); c.innerHTML='';
+  DEVS.forEach(function(o){ var b=document.createElement('button'); b.className='nt-opt'; b.dataset.d=o.d;
+    b.innerHTML='<span class="ic"><svg viewBox="0 0 24 24">'+o.ic+'</svg></span><span>'+o.t[li]+'<small>'+o.s[li]+'</small></span><span class="ck">'+ckS+'</span>';
+    b.addEventListener('click',function(){ S.dev=o.d; S.plan=null; syncScreen(); });
+    c.appendChild(b); });
+}
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+  buildQ();
+}
+
+function syncScreen(){
+  var li=L(), k=KW[S.kw], p=plan();
+  document.getElementById('welH').textContent=k.h[li];
+  document.getElementById('welS').textContent=k.s[li];
+  var ill=document.getElementById('welIll'); ill.src='img/ill-'+k.ill+'.png'; ill.classList.toggle('globe',k.ill==='globe');
+  document.querySelectorAll('#q1opts .nt-opt').forEach(function(b){ b.classList.toggle('on', S.prot.indexOf(b.dataset.o)>=0); });
+  document.getElementById('q1Go').disabled = !S.prot.length;
+  document.querySelectorAll('#q2opts .nt-opt').forEach(function(b){ b.classList.toggle('on', +b.dataset.d===S.dev); });
+  var lines = PROT.filter(function(o){ return S.prot.indexOf(o.k)>=0; }).map(function(o){ return o.l[li]; });
+  lines.push(t(S.dev>1?'ld.dev5':'ld.dev1'));
+  var ls=document.getElementById('ldSteps'), on=ls.querySelectorAll('.nt-ls.on').length;
+  ls.innerHTML = lines.map(function(x,i){ return '<div class="nt-ls'+(i<on?' on':'')+'"><span class="d">'+ckS+'</span>'+x+'</div>'; }).join('')
+    + '<div class="nt-ls fin'+(on>lines.length?' on':'')+'"><span class="d">'+ckS+'</span>'+t('ld.plan',{p:PLANS[rec()].n})+'</div>';
+  document.getElementById('payH').textContent=k.ph[li];
+  var r=rec(), order=rowOrder(), cols=['ms','m360','dlx'], h='<div class="logo"><img src="img/logo.png" alt="norton"></div>';
+  cols.forEach(function(c,ci){ h+='<div class="chd'+(c===p?' on':'')+'" data-c="'+c+'" style="grid-column:'+(ci+2)+'">'+(c===r?'<span class="rec">'+t('pw.rec')+'</span>':'')+PLANS[c].h+'</div>'
+    + '<div class="colbg'+(c===p?' on':'')+'" data-c="'+c+'" style="grid-column:'+(ci+2)+';grid-row:2 / span '+(order.length+1)+'"></div>'; });
+  order.forEach(function(rk,ri){ var row=ri+2, hi=(ri===0 && (k.row||S.path==='vpn'));
+    h+='<div class="rl'+(hi?' hi':'')+'" style="grid-row:'+row+'"><b>'+ROWS[rk].t[li]+'</b><span>'+ROWS[rk].d[li]+'</span></div>';
+    cols.forEach(function(c,ci){ var v=PLANS[c].v[rk];
+      h+='<div class="cell" style="grid-row:'+row+';grid-column:'+(ci+2)+'">'+(rk==='dev' ? '<span class="nt-num">'+v+'</span>' : v ? '<span class="nt-ok">'+ckS+'</span>' : '<span class="nt-no">'+xS+'</span>')+'</div>'; }); });
+  h+='<div class="pad" style="grid-row:'+(order.length+2)+'"></div>';
+  var tb=document.getElementById('tbl'); tb.innerHTML=h;
+  tb.querySelectorAll('[data-c]').forEach(function(el){ el.addEventListener('click',function(){ S.plan=el.dataset.c; syncScreen(); }); });
+  document.getElementById('payPrice').textContent=t('pw.price',{m:num(PLANS[p].m),y:num(PLANS[p].y)});
+  var op=offerPlan(), ck = op==='dlx' ? CHK.dlx : (S.path==='vpn' ? CHK.m360v : CHK.m360s);
+  document.getElementById('ofH').innerHTML=t(op==='dlx'?'of.hD':'of.hM');
+  document.getElementById('ofChk').innerHTML=ck.map(function(c){ return '<div class="nt-chk">'+ckS+'<span>'+c[li]+'</span></div>'; }).join('');
+  document.getElementById('ofPlan').textContent=PLANS[op].n;
+  document.getElementById('ofPrice').innerHTML=t('of.price',{y:num(PLANS[op].y)});
+}
+
+/* ================= router ================= */
+var ORDER=['welcome','q1','q2','loader','paywall','offer'];
+var LABEL={welcome:'Welcome',q1:'What to protect',q2:'Devices',loader:'Summary',paywall:'Plan picker',offer:'Offer on close'};
+var scr={}, hist=[], cur='welcome';
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+var UNDER={offer:'paywall'};
+function chrome(){ var ink=S.theme==='light';
+  document.getElementById('sbar').classList.toggle('ink',ink); document.getElementById('homebar').classList.toggle('ink',ink); }
+function tell(m){ if(EMBED && window.parent!==window){ m.flow=FLOW; window.parent.postMessage(m,'*'); } }
+function enter(id){ chrome(); tell({ev:'screen',id:id}); if(id==='loader') runLoader(); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back && !opts.nohist) hist.push(cur);
+  if(from){ from.classList.remove('is-active');
+    if(!to.classList.contains('sheet') && !from.classList.contains('sheet')) from.classList.add('is-past'); }
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur) scr[k].classList.remove('is-active'); });
+  if(UNDER[id]){ scr[UNDER[id]].classList.remove('is-past'); scr[UNDER[id]].classList.add('is-active'); }
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  cur=id; enter(id);
+}
+function back(){
+  if(!hist.length) return;
+  var prev=hist.pop();
+  scr[cur].classList.remove('is-active');
+  scr[prev].classList.remove('is-past'); scr[prev].classList.add('is-active');
+  cur=prev; enter(prev);
+}
+function jump(id){
+  var i=ORDER.indexOf(id); if(i<0){ id='welcome'; i=0; }
+  if(id===cur && id!=='loader'){ syncScreen(); return; }
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i).filter(function(k){ return k!=='offer' && k!=='loader'; });
+  if(UNDER[id]) scr[UNDER[id]].classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id);
+}
+var ldTok=0;
+function runLoader(){
+  var tok=++ldTok, steps=document.querySelectorAll('#ldSteps .nt-ls'), n=steps.length, i=0, arc=document.getElementById('ldArc');
+  steps.forEach(function(s){ s.classList.remove('on'); }); arc.style.strokeDashoffset=364;
+  var k=demo.on ? 0.48 : 1;
+  (function nx(){ if(tok!==ldTok || cur!=='loader') return;
+    if(i<n){ steps[i].classList.add('on'); i++; arc.style.strokeDashoffset=364*(1-i/n); setTimeout(nx,480*k); }
+    else setTimeout(function(){ if(tok===ldTok && cur==='loader'){ S.plan=null; syncScreen(); go('paywall',{nohist:true}); } },600*k); })();
+}
+var toastT;
+function toast(k){ var el=document.getElementById('toast'); el.textContent=t(k); el.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(function(){ el.classList.remove('on'); },2000); }
+
+document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click',back); });
+document.getElementById('welGo').addEventListener('click',function(){ go('q1'); });
+document.getElementById('welSign').addEventListener('click',function(){ toast('toast.sign'); });
+document.getElementById('q1Go').addEventListener('click',function(){ if(S.prot.length) go('q2'); });
+document.getElementById('q2Go').addEventListener('click',function(){ go('loader'); });
+document.getElementById('payClose').addEventListener('click',function(){ go('offer'); });
+document.getElementById('payCta').addEventListener('click',function(){ toast('toast.buy'); });
+document.getElementById('offClose').addEventListener('click',function(){ toast('toast.out'); });
+document.getElementById('offerCta').addEventListener('click',function(){ toast('toast.buy'); });
+
+function setLang(l){ S.lang=l; applyStatic(); syncScreen(); }
+function setTheme(th){ S.theme=th; document.getElementById('phoneIn').classList.toggle('dark',th==='dark'); chrome(); }
+function setKw(k){ S.kw=k; S.plan=null; syncScreen(); }
+
+/* ================= the walkthrough (each phone plays its own flow; the scam phone narrates) ================= */
+var demo={tok:0,on:false}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ if(FLOW==='scam') tell({ev:'cap',txt:txt}); }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=document.querySelector(sel); if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect();
+  finger.style.left=(r.left-p.left+r.width/2)+'px'; finger.style.top=(r.top-p.top+r.height/2)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+async function waitFor(id,tok){ for(var i=0;i<60 && cur!==id;i++) await pause(100,tok); }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true;
+  var keep={lang:S.lang,theme:S.theme}; S=defaults(); Object.assign(S,keep); S.kw=FLOW; tell({ev:'kw',kw:S.kw});
+  var v=FLOW==='vpn';
+  applyStatic(); jump('welcome');
+  (async function(){
+    try{
+      cap('Two searches, two first screens: “scam protection” leads with scams, “vpn” with Secure VPN.'); await pause(3000,tok);
+      await tap('#welGo',tok);
+      cap('Two questions. Each flow arrives with its own answer already ticked.'); await pause(1300,tok);
+      await tap(v?'#q1opts [data-o=wifi]':'#q1opts [data-o=dark]',tok); await pause(v?150:500,tok);
+      if(v) await tap('#q1opts [data-o=wifi]',tok); else await pause(660,tok);
+      await tap('#q1Go',tok);
+      await tap(v?'#q2opts [data-d="1"]':'#q2opts [data-d="5"]',tok); await pause(400,tok); await tap('#q2Go',tok);
+      cap('The summary reads their answers back.'); await waitFor('paywall',tok);
+      cap('Scam search: dark-web alerts and 5 devices, so 360 Deluxe. VPN search: 360 for Mobile, Secure VPN first.'); await pause(3800,tok);
+      await tap(v?'#tbl .colbg[data-c=ms]':'#tbl .colbg[data-c=m360]',tok); await pause(800,tok);
+      await tap(v?'#tbl .colbg[data-c=m360]':'#tbl .colbg[data-c=dlx]',tok); await pause(700,tok);
+      cap('They close it. The 7-day trial follows the plan they were on, in one currency.'); await tap('#payClose',tok); await pause(3400,tok);
+      finger.classList.remove('show'); demo.on=false; tell({ev:'demoEnd'});
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; finger.classList.remove('show','press'); }
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on){ stopDemo(); tell({ev:'demoStop'}); } });
+
+if(EMBED){
+  window.addEventListener('message',function(e){ var m=e.data||{}; if(!m.cmd) return;
+    if(m.cmd==='jump'){ stopDemo(); jump(m.id); }
+    if(m.cmd==='lang') setLang(m.v);
+    if(m.cmd==='theme') setTheme(m.v);
+    if(m.cmd==='kw'){ stopDemo(); setKw(m.v); }
+    if(m.cmd==='demo') startDemo();
+    if(m.cmd==='stop') stopDemo(); });
+  applyStatic(); scr.welcome.classList.add('is-active'); syncScreen(); chrome(); tell({ev:'screen',id:cur});
+}
+</script>
+<script>
+/* ================= the host page: two phones, one step bar, one panel ================= */
+if(!EMBED){
+var KWLAB=function(k){ return '“'+KW[k].lab+'”'; };
+var P3 = {
+welcome:{diff:true,t:'The first screen answers the search',idea:2,
+ scam:{hyp:'Leads with scam texts, calls and websites, from Safe SMS, Safe Call and Safe Web on your listing. <b>“scam protection” is your app’s name in 70+ markets, and nobody bids on it.</b>',out:'CR +15–20%'},
+ vpn:{hyp:'Leads with Secure VPN and bank-grade encryption, on the globe from your own offer screen. <b>You hold 0% of “vpn” today, so this is new traffic, not a redesign.</b>',out:'CR +15–20%'},
+ note:'Pick another search beside each phone: “security”, “antivirus”, “norton”, “totalav”, or “wifi security”, “nordvpn”, “vpn fast”. Each one gets its own headline from your own feature lines.'},
+q1:{diff:true,t:'Same question, a different first answer',idea:4,
+ scam:{hyp:'“Texts and calls from scammers” is already ticked, <b>because that is what they searched for</b>. They can add more.'},
+ vpn:{hyp:'“My connection on public Wi‑Fi” is already ticked, <b>so the flow is heading for a plan with Secure VPN from the first tap</b>.'}},
+paywall:{diff:true,t:'One table, opened two ways',idea:5,
+ scam:{hyp:'Scam protection is in all three plans, so the table opens on the plan their answers fit and puts <b>Genie Scam Protection on the first row</b>. Five devices or dark-web alerts move it to 360 Deluxe.',out:'CR +15–20%'},
+ vpn:{hyp:'Opens on Norton 360 for Mobile with Secure VPN on the first row, <b>never on Norton Mobile Security, the one plan with a red cross next to Secure VPN</b>. Tap that column to see it.',out:'CR +10–15%'}},
+offer:{diff:true,t:'A second chance that fits the search',idea:3,
+ scam:{hyp:'7 days free on the plan they were on, with <b>scam protection first in the list</b>. If they were on Mobile Security, the trial moves to 360 for Mobile, which your listing shows with a trial.',out:'ARPU +10–15%'},
+ vpn:{hyp:'7 days free on 360 for Mobile with <b>Secure VPN first in the list</b>, and one currency: “0 € today, 59.99 €/year from day 7”.',out:'ARPU +10–15%'}}
+};
+var PANEL = {
+q2:{n:4,t:'Ask two questions, then pick the plan for them',
+ hyp:'Try asking how many devices they want to protect, <b>because your own table already splits on it: 1 device on two plans, 5 on Deluxe</b>. The answer moves the column the table opens on.',
+ out:'CR +10–15%',kept:'Built only from your parts: the column cards, the dark selected border, the green ticks, the yellow circles from your illustrations and the yellow Continue.'},
+loader:{n:4,t:'Read their answers back before the price',
+ hyp:'Try a short summary that lists what they picked and names their plan, <b>because it turns a three-column table into “your plan”</b> before they ever see a price.',
+ out:'CR +10–15%',kept:'Your green ticks and yellow. The 4.7 from 183K ratings is your US App Store figure.'}
+};
+var IDEAS5 = [[1,'Never open a VPN search on the plan without VPN','CR +10–15%','paywall'],[2,'Match the first screen to the search','CR +15–20%','welcome'],
+  [3,'Let the offer on close follow the plan they chose','ARPU +10–15%','offer'],[4,'Ask two questions, then pick the plan for them','CR +10–15%','q1'],[5,'Put your 4.7 from 183K ratings on the plan picker','CR +10–15%','paywall']];
+var LIT = {welcome:[2],q1:[4],q2:[4],loader:[4],paywall:[1,5],offer:[3]};
+var H = {cur:{scam:'welcome',vpn:'welcome'}, step:'welcome', ready:{}, demo:false, t0:0, iv:null, lang:'en', one:'scam', kw:{scam:'scam',vpn:'vpn'}};
+var KWI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>';
+function frames(){ return {scam:document.querySelector('.flow.scam iframe'), vpn:document.querySelector('.flow.vpn iframe')}; }
+function send(flow,m){ var f=frames()[flow]; if(f&&f.contentWindow) f.contentWindow.postMessage(m,'*'); }
+function sendBoth(m){ send('scam',m); send('vpn',m); }
+function hostJump(id){ hostStopDemo(true); H.cur.scam=H.cur.vpn=id; sendBoth({cmd:'jump',id:id}); setStep(id); }
+function setStep(id){ H.step=id; paintSteps(); paintHostPanel(); }
+function paintSteps(){
+  var c=document.getElementById('hSteps');
+  if(!c.childElementCount) ORDER.forEach(function(id){ var b=document.createElement('button'); b.className='step'+(P3[id]?' diff':'');
+    b.textContent=LABEL[id]; b.dataset.id=id; b.title=P3[id]?'The two flows differ on this screen':'Same in both flows';
+    b.onclick=function(){ hostJump(id); }; c.appendChild(b); });
+  c.querySelectorAll('.step').forEach(function(b){ b.classList.toggle('on',b.dataset.id===H.step); });
+}
+function paintKw(){
+  ['scam','vpn'].forEach(function(f){
+    document.querySelectorAll('[data-kwq='+f+']').forEach(function(el){ el.textContent=KWLAB(H.kw[f]); });
+    var p=document.querySelector('[data-pick='+f+']');
+    p.innerHTML=KWS[f].map(function(k){ return '<button data-k="'+k+'" class="'+(k===H.kw[f]?'on':'')+'">'+KW[k].lab+'</button>'; }).join('');
+    p.querySelectorAll('button').forEach(function(b){ b.onclick=function(){ pickKw(f,b.dataset.k); }; });
+    var sel=document.querySelector('[data-sel='+f+']');
+    sel.innerHTML=KWS[f].map(function(k){ return '<option value="'+k+'"'+(k===H.kw[f]?' selected':'')+'>“'+KW[k].lab+'”</option>'; }).join('');
+    sel.onchange=function(){ pickKw(f,sel.value); };
+  });
+}
+function pickKw(f,k){ hostStopDemo(); H.kw[f]=k; send(f,{cmd:'kw',v:k}); paintKw(); paintHostPanel(); }
+function kcard(flow,d){
+  var h='<div class="kc '+flow+'"><div class="kk">'+KWI+KWLAB(H.kw[flow])+'</div><p>'+d.hyp+'</p>';
+  if(d.out) h+='<div class="ko"><span>Potential outcome</span><b>'+d.out+'</b></div>';
+  return h+'</div>';
+}
+function outBlock(lab,val){ return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>'; }
+function paintHostPanel(){
+  var id=H.step, d=P3[id], b=PANEL[id]||{}, here=LIT[id]||[], h='';
+  h+='<details class="sh"><summary><div class="top"><span class="lab"><small>Built into both flows</small>The 5 ideas from the audit</span>'
+    +'<span class="more"><span class="o">Show all ▾</span><span class="c">Hide ▴</span></span></div><div class="lit">';
+  IDEAS5.forEach(function(x){ h+='<button class="'+(here.indexOf(x[0])>-1?'on':'')+'" data-go="'+x[3]+'" title="'+x[1]+'">0'+x[0]+'</button>'; });
+  h+='<span>'+(here.length?'Lit = on this screen':'None on this screen')+'</span></div></summary><ol>';
+  IDEAS5.forEach(function(x){ h+='<li class="'+(here.indexOf(x[0])>-1?'on':'')+'" data-go="'+x[3]+'"><span class="n">0'+x[0]+'</span><span class="t">'+x[1]+'</span><span class="o">'+x[2]+'</span></li>'; });
+  h+='</ol></details>';
+  if(d){
+    h+='<div class="pn-badge"><i></i>'+LABEL[id]+' · differs by keyword</div><h3 class="pn-t">'+d.t+'</h3>';
+    h+=kcard('scam',d.scam)+kcard('vpn',d.vpn);
+    if(d.note) h+='<div class="pn-note">'+d.note+'</div>';
+    if(d.idea){ var x=IDEAS5[d.idea-1]; h+='<div class="pn-also"><div class="lab">'+(id==='paywall'?'Also on this screen, in both flows':'The idea behind this screen')+'</div>'
+      +'<div class="row"><span>Idea '+d.idea+' · '+x[1]+'</span><span class="o">'+x[2]+'</span></div></div>'; }
+  } else {
+    h+='<div class="pn-badge same"><i></i>'+LABEL[id]+' · same in both flows</div>';
+    h+='<div class="pn-n" style="margin-top:14px">Idea '+b.n+' of 5</div><h3 class="pn-t">'+b.t+'</h3><p class="pn-hyp">'+b.hyp+'</p>'
+      +outBlock('Potential outcome · based on Adapty data',b.out);
+    h+='<div class="pn-kept"><b>Your design, unchanged.</b> '+b.kept+'</div>';
+  }
+  h+='<div class="pn-kept"><b>Prices.</b> The euro prices on your in-app screens: 17.99 €, 59.99 € and 119.99 € a year. The keyword data is US.</div>';
+  if(H.lang!=='en') h+='<div class="pn-kept"><b>Language.</b> Screens are shown in '+(H.lang==='de'?'German':'Czech')+' to show both flows serving every market. Translated by us; store prices stay as published, plan names stay as you write them.</div>';
+  h+='<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps, not measured lift for Norton. Prices, ratings, plans and feature lines come from your own published material.</div>';
+  var p=document.getElementById('hPanel'); var wasOpen=p.querySelector('details.sh[open]'); p.innerHTML=h;
+  if(wasOpen) p.querySelector('details.sh').open=true;
+  p.querySelectorAll('.sh [data-go]').forEach(function(el){ el.onclick=function(e){ e.preventDefault(); e.stopPropagation(); hostJump(el.dataset.go); }; });
+}
+function hostSeg(attr,v){ document.querySelectorAll('[data-h'+attr+']').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-h'+attr)===v); }); }
+document.querySelectorAll('[data-hlang]').forEach(function(b){ b.addEventListener('click',function(){ H.lang=b.dataset.hlang; hostSeg('lang',H.lang); sendBoth({cmd:'lang',v:H.lang}); paintHostPanel(); }); });
+document.querySelectorAll('[data-htheme]').forEach(function(b){ b.addEventListener('click',function(){ hostSeg('theme',b.dataset.htheme); sendBoth({cmd:'theme',v:b.dataset.htheme}); }); });
+function hostDemo(){
+  if(!(H.ready.scam&&H.ready.vpn)){ setTimeout(hostDemo,150); return; }
+  hostStopDemo(true); H.demo=true; H.t0=Date.now(); H.kw={scam:'scam',vpn:'vpn'}; paintKw(); setStep('welcome');
+  document.getElementById('hSteps').classList.add('hidden'); document.getElementById('hCap').classList.remove('hidden');
+  document.getElementById('hCapT').textContent='';
+  H.iv=setInterval(function(){ document.getElementById('hProg').style.width=Math.min(100,(Date.now()-H.t0)/240)+'%'; },200);
+  sendBoth({cmd:'demo'});
+}
+function hostStopDemo(quiet){
+  if(!H.demo) return; H.demo=false; clearInterval(H.iv);
+  document.getElementById('hSteps').classList.remove('hidden'); document.getElementById('hCap').classList.add('hidden');
+  if(!quiet) sendBoth({cmd:'stop'});
+}
+document.getElementById('hStop').addEventListener('click',function(){ hostStopDemo(); });
+document.querySelectorAll('[data-hdemo]').forEach(function(b){ b.addEventListener('click',hostDemo); });
+window.addEventListener('message',function(e){
+  var m=e.data||{}; if(!m.ev||!m.flow) return;
+  var other=m.flow==='scam'?'vpn':'scam';
+  if(m.ev==='screen'){ var was=H.ready.scam&&H.ready.vpn; H.ready[m.flow]=true; H.cur[m.flow]=m.id;
+    if(!was&&H.ready.scam&&H.ready.vpn){ var sp=(location.search.match(/[?&]step=(\w+)/)||[])[1]; if(sp&&ORDER.indexOf(sp)>-1){ hostJump(sp); return; } }
+    if(!H.demo && H.cur[other]!==m.id && !(m.id==='paywall' && H.cur[other]==='loader')){ H.cur[other]=m.id; send(other,{cmd:'jump',id:m.id}); }
+    if(m.id!==H.step) setStep(m.id); }
+  if(m.ev==='kw'){ H.kw[m.flow]=m.kw; paintKw(); }
+  if(m.ev==='cap') document.getElementById('hCapT').textContent=m.txt;
+  if(m.ev==='demoEnd') hostStopDemo(true);
+  if(m.ev==='demoStop') hostStopDemo();
+});
+document.querySelectorAll('#mtog button').forEach(function(b){ b.addEventListener('click',function(){
+  H.one=b.dataset.one; document.querySelectorAll('#mtog button').forEach(function(x){ x.classList.toggle('on',x===b); });
+  document.querySelectorAll('.duo .flow').forEach(function(f){ f.classList.toggle('show',f.dataset.flow===H.one); }); fit(); }); });
+document.getElementById('drawerBtn').addEventListener('click',function(){ document.body.classList.toggle('drawer'); });
+function fit(){
+  var p3=document.getElementById('p3'), st=document.getElementById('p3Stage'), duo=document.getElementById('duo');
+  if(!document.getElementById('view-proto').classList.contains('on')) return;
+  var W=st.clientWidth-40, mobile=innerWidth<760, s;
+  if(mobile){ p3.className='p3 top one'; s=Math.min(1,(W+16)/390); }
+  else {
+    var Hs=duo.clientHeight-4;
+    var sSide=Math.min(1,Hs/844,(W-2*196-3*22)/(2*390));
+    var sTop=Math.min(1,(Hs-42)/844,(W-22)/(2*390));
+    var side=sSide>=sTop-0.01; p3.className='p3 '+(side?'side':'top'); s=side?sSide:sTop;
+  }
+  s=Math.max(.42,s);
+  document.querySelectorAll('.pbox').forEach(function(p){ p.style.width=Math.round(390*s)+'px'; p.style.height=Math.round(844*s)+'px';
+    p.firstElementChild.style.transform='scale('+s+')'; });
+}
+addEventListener('resize',fit);
+
+function showView(v){
+  if(v!=='proto'){ hostStopDemo(); document.body.classList.remove('drawer'); }
+  document.body.classList.toggle('proto',v==='proto');
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); });
+  window.scrollTo(0,0);
+  if(v==='proto') requestAnimationFrame(fit);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump],[data-kwjump]').forEach(function(b){
+  b.addEventListener('click',function(){ showView('proto'); hostJump(b.dataset.jump||b.dataset.kwjump); }); });
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); hostDemo(); }); });
+document.querySelectorAll('[data-scroll]').forEach(function(b){ b.addEventListener('click',function(){ document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}); }); });
+
+paintSteps(); paintKw(); paintHostPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+}
+</script>
+</body>
+</html>
